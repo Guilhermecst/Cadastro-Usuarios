@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastrar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://example.com/example-framework.js" crossorigin="anonymous"></script>
+
+    <script>
+
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('rua').value = "...";
+                    document.getElementById('bairro').value = "...";
+                    document.getElementById('cidade').value = "...";
+                    document.getElementById('uf').value = "...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+
+    </script>
+
+    <script type="text/javascript">
+
+        function fMasc(objeto, mascara) {
+            obj = objeto
+            masc = mascara
+            setTimeout("fMascEx()", 1)
+        }
+        function fMascEx() {
+            obj.value = masc(obj.value)
+        }
+        function mTel(tel) {
+            tel = tel.replace(/\D/g, "")
+            tel = tel.replace(/^(\d)/, "($1")
+            tel = tel.replace(/(.{3})(\d)/, "$1) $2")
+            if (tel.length == 9) {
+                tel = tel.replace(/(.{1})$/, "-$1")
+            } else if (tel.length == 10) {
+                tel = tel.replace(/(.{2})$/, "-$1")
+            } else if (tel.length == 11) {
+                tel = tel.replace(/(.{3})$/, "-$1")
+            } else if (tel.length == 12) {
+                tel = tel.replace(/(.{4})$/, "-$1")
+            } else if (tel.length > 12) {
+                tel = tel.replace(/(.{4})$/, "-$1")
+            }
+            return tel;
+        }
+        function mCNPJ(cnpj) {
+            cnpj = cnpj.replace(/\D/g, "")
+            cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2")
+            cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+            cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2")
+            cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2")
+            return cnpj
+        }
+        function mCPF(cpf) {
+            cpf = cpf.replace(/\D/g, "")
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+            return cpf
+        }
+        function mCEP(cep) {
+            cep = cep.replace(/\D/g, "")
+            cep = cep.replace(/^(\d{5})(\d)/, "$1-$2")
+            return cep
+        }
+        function mNum(num) {
+            num = num.replace(/\D/g, "")
+            return num
+        }
+        function mData(campo, e) {
+            var kC = (document.all) ? event.keyCode : e.keyCode;
+            var data = campo.value;
+
+            if (kC != 8 && kC != 46) {
+                if (data.length == 2) {
+                    campo.value = data += '/';
+                }
+                else if (data.length == 5) {
+                    campo.value = data += '/';
+                }
+                else
+                    campo.value = data;
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="column">
+
+            <div class="menu">
+                <div id="menu-bar">
+                    <div id="menu" onclick="onClickMenu()">
+                        <div id="bar1" class="bar"></div>
+                        <div id="bar2" class="bar"></div>
+                        <div id="bar3" class="bar"></div>
+
+                    </div>
+                    <ul class="nav" id="nav">
+
+                        {% if session['usuario_logado'] != None %}
+                        <h4>Bem vindo {{ session['usuario_logado'] }}!</h4>
+                        {% endif %}
+
+                        <div class="icon-link">
+                            <i class="ri-home-4-line menu-icon"></i>
+                            <li><a href="{{ url_for('index') }}" class="a-menu">Home</a></li>
+                        </div>
+
+                        <div class="icon-link">
+                            <i class="ri-login-box-line menu-icon"></i>
+                            <li><a href="{{ url_for('login') }}" class="a-menu">Login</a>
+                            </li>
+                        </div>
+
+                        <div class="icon-link">
+                            <i class="ri-user-add-line menu-icon"></i>
+                            <li><a href="{{ url_for('novo') }}" class="a-menu">Cadastre-se</a>
+                            </li>
+                        </div>
+
+                        <div class="icon-link">
+                            <i class="ri-newspaper-line menu-icon"></i>
+                            <li><a href="{{ url_for('sobre') }}" class="a-menu">Sobre</a>
+                            </li>
+                        </div>
+
+                        <div class="icon-link">
+                            <i class="ri-logout-box-line menu-icon"></i>
+                            <li><a href="{{ url_for('logout') }}" class="a-menu">Sair</a>
+                            </li>
+                        </div>
+
+                    </ul>
+
+                </div>
+                <div class="menu-bg" id="menu-bg"></div>
+                <script>
+
+                    function onClickMenu() {
+                        document.getElementById("menu").classList.toggle("change");
+                        document.getElementById("nav").classList.toggle("change");
+                        document.getElementById("menu-bg").classList.toggle("change-bg")
+                    }
+
+                </script>
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul id="messages" class="list-unstyled">
+                    {% for message in messages %}
+                    <li class="alert alert-success">{{ message }}</li>
+                    {% endfor %}
+                </ul><br>
+                {% endif %}
+                {% endwith %}
+
+                {% block conteudo %}{% endblock %}
+
+            </div>
+        </div>
+</body>
+
+</html>

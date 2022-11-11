@@ -1,0 +1,42 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<form method="POST" class="form" action="{{ url_for('autenticar') }}">
+    <input type="hidden" name="proxima" value="{{ proxima or url_for('index') }}">
+
+    <label class="label-input" for="">
+        <input type="text" id="nickname" name="nickname" size="40" placeholder="Nome de usuário" />
+    </label>
+
+    <label class="label-input" for="" style="position: relative;">
+        <input type="password" name="senha" id="senha" placeholder="Senha" />
+        <i class="ri ri-eye-off-fill ri-eye-fill" id="togglePassword"></i>
+
+        <script>
+
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#senha');
+            togglePassword.addEventListener('click', function (e) {
+
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                this.classList.toggle('ri-eye-off-fill');
+            });
+
+        </script>
+    </label>
+
+    <label class="label-link"><a href="{{ url_for('novo') }}">Criar login</a><a href="">Esqueceu a
+            senha?</a></label>
+
+    <button type="submit" class="btn">Entrar<i class="ri-login-box-line button-icon"></i></button>
+</form>
+</div>
+</div>
+</body>
+
+</html>
+{% endblock %}

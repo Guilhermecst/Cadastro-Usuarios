@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1DB954;
+    height: 100vh;
+    background: linear-gradient(140deg, #1DB954, #1D9B54, #1D7B54, #1D5B54, #1D3B54);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.logo {
+    display: contents;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    height: 7rem;
+    width: 7rem;
+    margin-bottom: 10px;
+}
+
+.logo p {
+    color: #fff;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.btn {
+    border-radius: 15px;
+    color: #191414;
+    font-size: 15px;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    border: none;
+    margin-top: 1rem;
+    background-color: #1DB954;
+    transition: background-color .5s;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #191414;
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #191414;
+    padding: 3%;
+    border-radius: 15px;
+}
+
+.contact {
+    width: 30rem;
+}
+
+.menu {
+    flex-direction: row;
+    display: flex;
+}
+
+#menu {
+    width: 35px;
+    height: 30px;
+    margin: 30px 0 20px 20px;
+    cursor: pointer;
+}
+
+.bar {
+    height: 5px;
+    width: 100%;
+    background-color: #191414;
+    display: block;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+#bar1 {
+    transform: translateY(-4px);
+}
+
+#bar3 {
+    transform: translateY(4px);
+}
+
+.nav li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav li a:hover {
+    font-weight: bold;
+}
+
+.nav li {
+    list-style: none;
+    padding: 16px 0;
+}
+
+.nav {
+    padding: 0;
+    margin: 0 20px;
+    transition: 0.3s ease;
+    display: none;
+}
+
+.menu-bg,
+#menu-bar {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.menu-bg {
+    z-index: 1;
+    width: 0;
+    height: 0;
+    margin: 30px 0 20px 20px;
+    background: radial-gradient(circle, #191414, #1D3B54);
+    border-radius: 50%;
+    transition: 0.3s ease;
+}
+
+#menu-bar {
+    z-index: 2;
+
+}
+
+.change-bg {
+    width: 570px;
+    height: 560px;
+    transform: translate(-60%, -30%);
+}
+
+.change .bar {
+    background-color: white;
+}
+
+.change #bar1 {
+    transform: translateY(4px) rotateZ(-45deg);
+}
+
+.change #bar3 {
+    transform: translateY(-6px) rotate(45deg);
+}
+
+.change #bar2 {
+    opacity: 0;
+}
+
+.change {
+    display: block;
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    color: #fff;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.a-menu {
+    background-image: linear-gradient(
+        transparent 0%,
+        transparent 90%,
+        #fff 90%,
+        #fff 100%
+    );
+
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position-x: right;
+
+    transition: background-size 300ms;
+}
+
+.a-menu:hover {
+    background-size: 100% 100%;
+    background-position-x: left;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.form input {
+    height: 36px;
+    width: 100%;
+    border: none;
+    background-color: #ecf0f1;
+}
+
+input {
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+input:hover {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+.form input:focus {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+
+textarea {
+    border-radius: 6px;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+}
+
+textarea:hover {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+.form textarea:focus {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+textarea:focus,
+input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+
+/* Chrome e outros */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+label {
+    margin: 8px;
+}
+
+.div-input {
+    display: flex;
+}
+
+.div-input label {
+    width: 100%;
+}
+
+/* Lance */
+
+#saida {
+    color: #1DB954;
+    text-align: center;
+}
+
+.resposta {
+    color: #1DB954;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.cad-produto {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cad-produto p {
+    color: #1DB954;
+}
+
+.cad-produto a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.cad-produto a:hover {
+    color: #1DB954;
+}
+
+/*VERSÃO MOBILE*/
+@media screen and (max-width: 1040px) {
+
+    .column {
+        width: 90%;
+    }
+
+    label {
+        margin: 4px;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo img {
+        height: 10vh;
+        width: 10vh;
+    }
+
+    .title {
+        font-size: small;
+    }
+
+    #saida {
+        font-size: small;
+    }
+
+    .esqueceu-senha {
+        font-size: small;
+    }
+
+    .cadastre-se {
+        font-size: small;
+    }
+
+    .login-rede-social a {
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 30%;
+        font-size: small;
+    }
+
+    .btn-lance {
+        width: 50.7%;
+    }
+
+    .btn-cadastrar {
+        margin-top: 5px;
+    }
+
+    .resposta {
+        font-size: small;
+    }
+
+    .social-media a {
+        height: 2.3rem;
+        width: 2.3rem;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    .cadastro input {
+        height: 22px;
+    }
+
+    .cad-produto p, a {
+        font-size: small;
+    }
+
+    @media screen and (max-width: 425px) {
+
+        .column {
+            width: 90%;
+        }
+
+        label {
+            margin: 4px;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .logo img {
+            height: 10vh;
+            width: 10vh;
+            margin-bottom: 0px;
+        }
+    
+        .title {
+            font-size: small;
+        }
+
+        #saida {
+            font-size: small;
+        }
+    
+        .esqueceu-senha {
+            font-size: small;
+        }
+    
+        .cadastre-se {
+            font-size: small;
+        }
+    
+        .login-rede-social a {
+            height: 2rem;
+            width: 2rem;
+        }
+    
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            font-size: small;
+        }
+
+        .btn-lance {
+            width: 65%;
+        }
+
+        .btn-cadastrar {
+            margin-top: 5px;
+        }
+    
+        .social-media a {
+            height: 2.3rem;
+            width: 2.3rem;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .cadastro input {
+            height: 22px;
+        }
+
+        .cad-produto p, a {
+            font-size: small;
+        }
+
+    }
+}
+
+/* Contato */
+
+.social-media {
+    display: flex;
+}
+
+.icon {
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    background-color: #191414;
+    color: #1DB954;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px;
+}
+
+.icon:hover {
+    background-color: #fff;
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+.label-senha {
+    display: flex;
+    align-items: center;
+}
+
+.bi, .bi-eye-fill {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    margin-bottom: 7px;
+}

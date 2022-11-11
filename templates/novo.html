@@ -1,0 +1,74 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+
+<form class="form" action="{{ url_for('criar') }}" method="post" enctype="multipart/form-data">
+
+    <label class="label-input" for="">
+        <input type="text" maxlength="20" id="nome" name="nome" placeholder="Primeiro nome" required>
+        <input type="text" class="border-left" maxlength="50" id="sobrenome" name="sobrenome" placeholder="Sobrenome" required>
+
+        <input type="text" class="border-left" id="data_nasc" name="data_nasc" placeholder="Data de nascimento"
+            maxlength="10" onkeypress="mData( this, event )" required>
+    </label>
+
+    <label class="label-input" for="">
+        <input type="email" maxlength="100" id="email" name="email" placeholder="Email" required>
+
+        <input type="text" class="border-left" id="telefone" name="telefone" placeholder="Telefone" maxlength="15"
+            onkeydown="javascript: fMasc( this, mTel);" required>
+
+        <input type="text" class="border-left" id="cpf" name="cpf" maxlength="14" placeholder="CPF"
+            onkeydown="javascript: fMasc( this, mCPF );" required />
+    </label>
+
+    <label>
+        <input type="text" id="cep" name="cep" value="" size="10" placeholder="CEP" maxlength="9"
+            onblur="pesquisacep(this.value);" onkeydown="javascript: fMasc( this, mCEP );" required />
+
+        <input type="text" class="border-left" id="uf" name="uf" size="2" placeholder="UF" />
+
+        <input type="text" maxlength="50" class="border-left" id="cidade" name="cidade" size="40"
+            placeholder="Cidade" />
+
+    </label>
+
+    <label class="label-input" for="">
+        <input type="text" id="rua" name="rua" size="60" placeholder="Rua" />
+        <input type="text" class="border-left" id="numero" name="numero" maxlength="7" placeholder="Número"
+            required></label>
+    <label class="label-input" for="">
+        <input type="text" id="complemento" name="complemento" placeholder="Complemento"></label>
+    <label class="label-input" for="">
+        <input type="text" id="bairro" name="bairro" size="40" placeholder="Bairro" /></label>
+
+    <h4 class="border-left">Dados de login</h4>
+
+    <label class="label-input" for="" style="position: relative;">
+        <input type="text" id="nickname" name="nickname" size="40" placeholder="Nome de usuário" />
+        <input type="password" class="border-left" name="senha" id="senha" placeholder="Senha" />
+        <i class="ri ri-eye-off-fill ri-eye-fill" id="togglePassword"></i>
+
+        <script>
+
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#senha');
+            togglePassword.addEventListener('click', function (e) {
+
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                this.classList.toggle('ri-eye-off-fill');
+            });
+
+        </script>
+    </label>
+
+
+    <button type="submit" class="btn">Cadastrar<i class="ri-user-add-line button-icon"></i></button>
+
+</form>
+</div>
+{% endblock %}

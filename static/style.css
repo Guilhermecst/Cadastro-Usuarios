@@ -1,0 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #1DB954;
+    height: 100vh;
+    background: linear-gradient(140deg, #1DB954, #1D9B54, #1D7B54, #1D5B54, #1D3B54);
+    background-attachment: fixed;
+}
+
+.menu {
+    flex-direction: column;
+    display: flex;
+}
+
+#menu {
+    width: 35px;
+    height: 30px;
+    margin: 30px 0 20px 20px;
+    cursor: pointer;
+}
+
+.bar {
+    height: 5px;
+    width: 100%;
+    background-color: #191414;
+    display: block;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+#bar1 {
+    transform: translateY(-4px);
+}
+
+#bar3 {
+    transform: translateY(4px);
+}
+
+.nav li a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.nav li a:hover {
+    font-weight: bold;
+}
+
+.nav li {
+    list-style: none;
+    padding: 16px 0;
+}
+
+.nav {
+    padding: 0;
+    margin: 0 20px;
+    transition: 0.3s ease;
+    display: none;
+}
+
+.menu-bg,
+#menu-bar {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.menu-bg {
+    z-index: 1;
+    width: 0;
+    height: 0;
+    margin: 30px 0 20px 20px;
+    background: radial-gradient(circle, #191414, #1D3B54);
+    border-radius: 50%;
+    transition: 0.3s ease;
+}
+
+#menu-bar {
+    z-index: 2;
+
+}
+
+.change-bg {
+    width: 570px;
+    height: 560px;
+    transform: translate(-60%, -30%);
+}
+
+.change .bar {
+    background-color: white;
+}
+
+.change #bar1 {
+    transform: translateY(4px) rotateZ(-45deg);
+}
+
+.change #bar3 {
+    transform: translateY(-6px) rotate(45deg);
+}
+
+.change #bar2 {
+    opacity: 0;
+}
+
+.change {
+    display: block;
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+}
+
+.menu-icon {
+    color: #ecf0f1;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.a-menu {
+    background-image: linear-gradient(
+        transparent 0%,
+        transparent 90%,
+        #ecf0f1 90%,
+        #ecf0f1 100%
+    );
+
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position-x: right;
+
+    transition: background-size 300ms;
+}
+
+.a-menu:hover {
+    background-size: 100% 100%;
+    background-position-x: left;
+}
+
+h2, h4 {
+    color: #1DB954;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.content {
+    background-color: #ecf0f1;
+    border-radius: 15px;
+    width: 960px;
+    height: 50%;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.content::before {
+    content: "";
+    position: absolute;
+    background-color: #58af9b;
+    width: 40%;
+    height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    left: 0;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ecf0f1;
+}
+
+.btn {
+    border-radius: 15px;
+    color: #191414;
+    font-size: 15px;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+    border: none;
+    margin-top: 1rem;
+    background-color: #1DB954;
+    transition: background-color .5s;
+    display: flex;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: #ecf0f1;
+    color: #191414;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #191414;
+    padding: 3%;
+    border-radius: 15px;
+}
+
+.column-login {
+    width: 30%;
+}
+
+.column-lista {
+    width: auto;
+}
+
+th {
+    color: #ecf0f1;
+    background-color: #34495e;
+    padding-inline: 10px;
+}
+
+td {
+    background-color: #ecf0f1;
+    text-align: center;
+    padding-inline: 10px;
+}
+
+.list-unstyled {
+    background-color: #ecf0f1;
+    list-style-type: none;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form input {
+    height: 40px;
+    width: 100%;
+    border: none;
+    background-color: #ecf0f1;
+}
+
+input {
+    border-radius: 6px;
+    padding-left: 10px;
+}
+
+input:hover {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+.form input:focus {
+    box-shadow: 0 0 10px 2px #1DB954;
+}
+
+textarea:focus,
+input:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+
+.ri {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.border-left {
+    margin-left: 0.5rem;
+}
+
+#num {
+    width: 5rem;
+}
+
+#dataNasc {
+    width: 8.6rem;
+}
+
+#telefone {
+    width: 7.8rem;
+}
+
+#uf {
+    width: 5rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.label-link {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* second content*/
+
+.content {
+    position: absolute;
+    display: flex;
+}
+
+.content {
+    order: 2;
+    z-index: -1;
+}
+
+.content .column {
+    order: 1;
+    z-index: -1;
+}
+
+a {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+    margin-right: 5px;
+    color: #1DB954;
+}
+
+a:hover {
+    color: #ecf0f1;
+}
+
+.link-lista {
+    display: block;
+    color: #191414;
+    margin: 0.2rem;
+}
+
+.link-lista:hover {
+    color: #1DB954;
+}
+
+.link-lista:hover .ri-delete-bin-2-fill {
+    color: #e50914;
+}
+
+.icon {
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    background-color: #1DB954;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px;
+}
+
+.icon:hover {
+    background-color: #ecf0f1;
+}
+
+.social-media {
+    display: flex;
+}
+
+.social-media a {
+    color: #191414;
+    font-size: 1.5rem;
+}
+
+p {
+    color: #ecf0f1;
+    width: 350px;
+    text-align: justify;
+}
+
+/*VERSÃO MOBILE*/
+@media screen and (max-width: 1040px) {
+    .content {
+        width: 100%;
+        height: 100%;
+    }
+
+    .content::before {
+        width: 100%;
+        height: 40%;
+        top: 0;
+        border-radius: 0;
+    }
+
+    .content {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .sign-in-js .content::before {
+        top: 60%;
+        left: 0;
+        border-radius: 0;
+
+    }
+
+    .form {
+        width: 90%;
+    }
+
+    @media screen and (max-width: 425px) {
+        .form {
+            width: 100%;
+        }
+    }
+}
