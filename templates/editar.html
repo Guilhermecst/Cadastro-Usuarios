@@ -6,38 +6,30 @@
 
 <form class="form" action="{{ url_for('atualizar') }}" method="post">
 
-  <label class="label-input" for="">
-    <input type="text" maxlength="50" id="nome" name="nome" placeholder="Nome" required value="{{ usuario.nome }}">
-
-    <input type="text" class="border-left" id="data_nasc" name="data_nasc" placeholder="Data de nascimento"
-      maxlength="10" onkeypress="mData( this, event )" required value="{{ usuario.data_nasc }}">
-  </label>
-
+  <h4>Dados de contato</h4>
   <label class="label-input" for="">
     <input type="email" maxlength="100" id="email" name="email" placeholder="Email" required
       value="{{ usuario.email }}">
 
-    <input type="text" class="border-left" id="telefone" name="telefone" placeholder="Telefone" maxlength="15"
+    <input type="text" class="margin-left" id="telefone" name="telefone" placeholder="Telefone" maxlength="15"
       onkeydown="javascript: fMasc( this, mTel);" required value="{{ usuario.telefone }}">
-
-    <input type="text" class="border-left" id="cpf" name="cpf" maxlength="14" placeholder="CPF"
-      onkeydown="javascript: fMasc( this, mCPF );" required value="{{ usuario.cpf }}" />
   </label>
 
+  <h4>Dados de endereço</h4>
   <label>
     <input type="text" id="cep" name="cep" size="10" placeholder="CEP" maxlength="9" onblur="pesquisacep(this.value);"
       onkeydown="javascript: fMasc( this, mCEP );" required value="{{ usuario.cep }}" />
 
-    <input type="text" class="border-left" id="uf" name="uf" size="2" placeholder="UF" value="{{ usuario.uf }}" />
+    <input type="text" class="margin-left" id="uf" name="uf" size="2" placeholder="UF" value="{{ usuario.uf }}" />
 
-    <input type="text" maxlength="50" class="border-left" id="cidade" name="cidade" size="40" placeholder="Cidade"
+    <input type="text" maxlength="50" class="margin-left" id="cidade" name="cidade" size="40" placeholder="Cidade"
       value="{{ usuario.cidade }}" />
 
   </label>
 
   <label class="label-input" for="">
     <input type="text" id="rua" name="rua" size="60" placeholder="Rua" value="{{ usuario.rua }}" />
-    <input type="text" class="border-left" id="numero" name="numero" maxlength="7" placeholder="Número" required
+    <input type="text" class="margin-left" id="numero" name="numero" maxlength="7" placeholder="Número" required
       value="{{ usuario.numero }}"></label>
   <label class="label-input" for="">
     <input type="text" id="complemento" name="complemento" placeholder="Complemento"
@@ -45,12 +37,12 @@
   <label class="label-input" for="">
     <input type="text" id="bairro" name="bairro" size="40" placeholder="Bairro" value="{{ usuario.bairro }}" /></label>
 
-  <h4 class="border-left">Dados de login</h4>
+  <h4 class="margin-left">Dados de login</h4>
 
   <label class="label-input" for="" style="position: relative;">
     <input type="text" id="nickname" name="nickname" size="40" placeholder="Nome de usuário"
       value="{{ usuario.nickname }}" />
-    <input type="password" class="border-left" name="senha" id="senha" placeholder="Senha"
+    <input type="password" class="margin-left" name="senha" id="senha" placeholder="Senha"
       value="{{ usuario.senha }}" />
     <i class="ri ri-eye-off-fill ri-eye-fill" id="togglePassword"></i>
 

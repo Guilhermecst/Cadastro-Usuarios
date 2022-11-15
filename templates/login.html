@@ -4,7 +4,6 @@
     <h2>{{ titulo }}</h2>
 </div>
 <form method="POST" class="form" action="{{ url_for('autenticar') }}">
-    <input type="hidden" name="proxima" value="{{ proxima or url_for('index') }}">
 
     <label class="label-input" for="">
         <input type="text" id="nickname" name="nickname" size="40" placeholder="Nome de usuário" />
@@ -34,8 +33,6 @@
 
     <button type="submit" class="btn">Entrar<i class="ri-login-box-line button-icon"></i></button>
 </form>
-</div>
-</div>
 </body>
 
 </html>

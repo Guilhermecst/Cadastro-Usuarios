@@ -16,11 +16,11 @@ except mysql.connector.Error as err:
 
 cursor = conn.cursor()
 
-cursor.execute("DROP DATABASE IF EXISTS `usuarios`;")
+cursor.execute("DROP DATABASE IF EXISTS `salao`;")
 
-cursor.execute("CREATE DATABASE `usuarios`;")
+cursor.execute("CREATE DATABASE `salao`;")
 
-cursor.execute("USE `usuarios`;")
+cursor.execute("USE `salao`;")
 
 # criando tabelas
 TABLES = {}
@@ -31,6 +31,7 @@ TABLES['usuarios'] = ('''
       `nome` VARCHAR(20) NOT NULL,
       `sobrenome` VARCHAR(50) NOT NULL,
       `data_nasc` VARCHAR(10) NOT NULL,
+      `genero` VARCHAR(15) NOT NULL,
       `email` VARCHAR(100) NOT NULL,
       `telefone` VARCHAR(15) NOT NULL,
       `cpf` VARCHAR(14) NOT NULL,
@@ -43,6 +44,18 @@ TABLES['usuarios'] = ('''
       `bairro` VARCHAR(30) NOT NULL,
       `senha` VARCHAR(50) NOT NULL,
       PRIMARY KEY (`id`, `nickname`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
+
+TABLES['agenda'] = ('''
+      CREATE TABLE `agenda` (
+      `id_servico` INT(5) NOT NULL AUTO_INCREMENT,
+      `data` VARCHAR(10) NOT NULL,
+      `servico` VARCHAR(15) NOT NULL,
+      `hora` VARCHAR(5) NOT NULL,
+      `nome_cliente` VARCHAR(20) NOT NULL,
+      `email_cliente` VARCHAR(120) NOT NULL,
+      `telefone_cliente` VARCHAR(15) NOT NULL,
+      PRIMARY KEY (`id_servico`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 for tabela_nome in TABLES:
@@ -59,17 +72,17 @@ for tabela_nome in TABLES:
             print('OK')
 
 
-''' inserindo usuarios
-usuario_sql = 'INSERT INTO usuarios (nickname, nome, sobrenome, data_nasc, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+''' inserindo usuarios '''
+usuario_sql = 'INSERT INTO usuarios (nickname, nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 usuarios = [
-      ("guilherme", "Guilherme", "Costa Silva", "24/11/2001", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10", "06160-265", "SP", "Osasco", "Rua Anastacia", "48", None, "Bandeiras", "teste123"),
+      ("guilherme", "Guilherme", "Costa Silva", "24/11/2001", "Masculino", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10", "06160-265", "SP", "Osasco", "Rua Anastacia", "48", None, "Bandeiras", "teste123"),
 ]
 cursor.executemany(usuario_sql, usuarios)
 
 cursor.execute('select * from usuarios')
 print(' -------------  Usuários:  -------------')
 for user in cursor.fetchall():
-    print(user[1])'''
+    print(user[1])
 
 # commitando se não nada tem efeito
 conn.commit()
