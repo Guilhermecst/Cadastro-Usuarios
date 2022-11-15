@@ -11,6 +11,8 @@ def index():
 
 @app.route('/novo')
 def novo():
+    if 'nickname' not in session or session['nickname'] == None:
+        return redirect(url_for('login', proxima=url_for('novo')))
     return render_template('novo.html', titulo='Novo usuário')
 
 
@@ -106,7 +108,8 @@ def autenticar():
             session['email'] = usuario.email
             session['telefone'] = usuario.telefone
             flash(usuario.nome + ' logado com sucesso!')
-            return redirect(url_for('index'))
+            proxima_pagina = request.form['proxima']
+            return redirect(proxima_pagina)
         else:
             flash('Usuário não logado')
             return redirect(url_for('login'))
@@ -137,6 +140,7 @@ def agendar_horario():
     Agenda.adicionar_agendamento(
         nome_cliente, servico, data, hora, email_cliente, telefone_cliente)
 
+    flash('Agendamento efetuado com sucesso!')
     return redirect(url_for('agenda'))
 
 

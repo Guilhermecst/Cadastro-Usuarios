@@ -31,7 +31,7 @@ class Usuarios(db.Model):
 
 
 class Agenda(db.Model):
-    id_servico = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id_agendamento = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome_cliente = db.Column(db.String(20), nullable=False)
     servico = db.Column(db.String(15), nullable=False)
     data = db.Column(db.String(10), nullable=False)

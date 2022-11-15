@@ -48,14 +48,14 @@ TABLES['usuarios'] = ('''
 
 TABLES['agenda'] = ('''
       CREATE TABLE `agenda` (
-      `id_servico` INT(5) NOT NULL AUTO_INCREMENT,
+      `id_agendamento` INT(5) NOT NULL AUTO_INCREMENT,
       `data` VARCHAR(10) NOT NULL,
       `servico` VARCHAR(15) NOT NULL,
       `hora` VARCHAR(5) NOT NULL,
       `nome_cliente` VARCHAR(20) NOT NULL,
       `email_cliente` VARCHAR(120) NOT NULL,
       `telefone_cliente` VARCHAR(15) NOT NULL,
-      PRIMARY KEY (`id_servico`)
+      PRIMARY KEY (`id_agendamento`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 for tabela_nome in TABLES:

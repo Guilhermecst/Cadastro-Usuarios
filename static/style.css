@@ -566,8 +566,17 @@ p {
     color: #ecf0f1;
 }
 
+.day+.gray-day {
+    background-color: gray;
+}
+
+.day+.gray-day:hover {
+    color: #191414;
+}
+
 .day+#currentDay {
     background-color: #1DB954;
+    color: #ecf0f1;
 }
 
 .day+#currentDay:hover {
