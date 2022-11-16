@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+
+<div class="perfil">
+    <i class="ri-user-line icon"></i>
+    <h2>{{ session['nome'] }}</h2>
+</div><br>
+
+<div class="dados-pessoais">
+    <p><i class="ri-mail-line"></i><span class="margin-left">Email: {{ session['email'] }}</span></p>
+    <p><i class="ri-phone-line"></i><span class="margin-left">Telefone: {{ session['telefone'] }}</span></p>
+</div><br>
+
+<div class="two-buttons">
+    <a href="{{ url_for('usuarios') }}" class="btn btn-perfil">Voltar<i class="ri-arrow-left-line button-icon"></i></a><br>
+    {% for usuario in usuarios %}
+    <a href="{{ url_for('editar', id=usuario.id) }}" class="btn margin-left btn-perfil">Editar dados<i
+            class="ri-ball-pen-line button-icon"></i></a>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+</body>
+
+</html>

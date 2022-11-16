@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<form class="form" action="{{ url_for('atualizar_agendamento') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="servico">
+    <label for="">
+        <select name="servico" value="" required>
+            <option selected disabled hidden>Selecione um serviço</option>
+            <option value="Corte">Corte</option>
+            <option value="Barba">Barba</option>
+        </select>
+        <input type="text" class="margin-left" id="data" value="{{ agendamento.data }}" name="data" placeholder="Data"
+            required>
+        <select name="hora" value="" class="margin-left" required>
+            <option selected disabled hidden>Selecione um horario</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+        </select>
+    </label>
+    <label for="">
+        <input type="text" name="nome_cliente" value="{{ session['nome'] }}" required>
+        <input type="text" name="email_cliente" class="margin-left" value="{{ session['email'] }}" required>
+        <input type="text" name="telefone_cliente" class="margin-left" value="{{ session['telefone'] }}" required>
+    </label>
+
+    <div class="two-buttons">
+        <button type="submit" class="btn">Salvar<i class="ri-save-3-fill button-icon"></i></button>
+        <a href="{{ url_for('agendamentos') }}" class="btn margin-left">Cancelar<i class="ri-close-circle-line button-icon"></i></a><br>
+    </div>
+</form>
+
+
+{% endblock %}
+</body>
+
+</html>

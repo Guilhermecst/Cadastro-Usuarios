@@ -1,0 +1,49 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<table class="table table-striped table-responsive table-bordered">
+    <thead class="thead-default">
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Serviço</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Funções</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for agenda in agendamentos %}
+        <tr>
+            <td>{{ agenda.id_agendamento }}</td>
+            <td>{{ agenda.nome_cliente }}</td>
+            <td>{{ agenda.servico }}</td>
+            <td>{{ agenda.data }}</td>
+            <td>{{ agenda.hora }}</td>
+            <td>{{ agenda.email_cliente }}</td>
+            <td>{{ agenda.telefone_cliente }}</td>
+            <td>
+                <div class="delete-edit">
+                    <a class="link-icons" href="{{ url_for('editar_agendamento', id_agendamento=agenda.id_agendamento) }}"><i class="ri-ball-pen-line"
+                            title="Editar"></i></a>
+                    <a class="link-icons" href="{{ url_for('deletar_agendamento', id_agendamento=agenda.id_agendamento) }}"><i class="ri-delete-bin-2-line"
+                            title="Deletar"></i></a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table><br>
+
+<a href="{{ url_for('agenda') }}" class="btn">Novo agendamento<i class="ri-calendar-2-line button-icon"></i></a>
+
+</div>
+</body>
+
+</html>
+{% endblock %}

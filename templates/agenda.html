@@ -1,7 +1,10 @@
 {% extends "template.html" %}
 {% block conteudo %}
-<div class="page-header">
-    <h2>{{ titulo }}</h2>
+
+<div class="points">
+    <div class="point"></div>
+    <h2>Agenda</h2>
+    <div class="point"></div>
 </div>
 <div id="container-calendar">
     <div id="header">
@@ -166,6 +169,15 @@
                     dayS.classList.toggle('gray-day')
                 }
 
+                if (nav > 2) {
+                    dayS.classList.toggle('gray-day')
+                    document.getElementsByTagName("h2")[0].innerText = 'Agenda fechada'
+                }
+
+                if (nav < 3) {
+                    document.getElementsByTagName("h2")[0].innerText = 'Agenda'
+                }
+
                 if (eventDay) {
                     const eventDiv = document.createElement('div')
                     eventDiv.classList.add('event')
@@ -174,7 +186,7 @@
 
                 }
 
-                if (i - paddinDays >= day && nav >= 0) {
+                if ((i - paddinDays >= day && nav === 0) || (nav > 0 && nav < 3)) {
                     dayS.addEventListener('click', () => openModal(dayString))
                 }
 
@@ -222,7 +234,7 @@
     load()
 </script>
 
-{% endblock %}
 </body>
 
 </html>
+{% endblock %}

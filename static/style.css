@@ -30,6 +30,11 @@ body {
     width: 250px;
 }
 
+.perfil-menu {
+    display: flex;
+    align-items: center;
+}
+
 .menu-msg {
     color: #1DB954;
 }
@@ -271,6 +276,10 @@ h4 {
     align-items: center;
 }
 
+.btn-perfil {
+    padding: 10px 25px;
+}
+
 .btn:hover {
     background-color: #ecf0f1;
     color: #191414;
@@ -300,7 +309,7 @@ h4 {
     width: 30%;
 }
 
-.column-lista {
+.column-usuarios {
     width: auto;
 }
 
@@ -366,6 +375,10 @@ input:focus {
     margin-left: 0.5rem;
 }
 
+.margin-rigth {
+    margin-right: 0.5rem;
+}
+
 #num {
     width: 5rem;
 }
@@ -423,17 +436,23 @@ a:hover {
     color: #ecf0f1;
 }
 
-.link-lista {
+.delete-edit {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.link-icons {
     display: block;
     color: #191414;
     margin: 0.2rem;
 }
 
-.link-lista:hover {
+.link-icons:hover {
     color: #1DB954;
 }
 
-.link-lista:hover .ri-delete-bin-2-fill {
+.link-icons:hover .ri-delete-bin-2-line {
     color: #e50914;
 }
 
@@ -466,9 +485,27 @@ p {
     color: #ecf0f1;
     width: 350px;
     text-align: justify;
+    display: flex;
+    align-items: center;
 }
 
 /* Calendario */
+
+.points {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.point {
+    width: 27px;
+    height: 27px;
+    box-sizing: border-box;
+    border: 1vh solid;
+    border-radius: 50%;
+    color: #ecf0f1;
+    background-color: #1DB954;
+}
 
 .div-head-buttons button {
     width: 75px;
@@ -489,6 +526,23 @@ p {
     padding: 5px;
     border-radius: 5px;
     color: white;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.perfil .icon{
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+}
+
+.two-buttons {
+    display: flex;
+    justify-content: center;
 }
 
 #header {
@@ -549,7 +603,7 @@ p {
     width: 50px;
     padding: 10px;
     height: 50px;
-    font-size: 12px;
+    font-size: 15px;
     cursor: pointer;
     box-sizing: border-box;
     background-color: #ecf0f1;
@@ -557,12 +611,12 @@ p {
     box-shadow: 0px 0px 3px var(--box-shadow);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-radius: 15%;
+    align-items: flex-end;
 }
 
 .day:hover {
-    background-color: #34495e;
+    background-color: #1D3B54;
     color: #ecf0f1;
 }
 
@@ -653,6 +707,7 @@ select {
     border: none;
     outline: none;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 select:hover {

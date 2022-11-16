@@ -3,10 +3,16 @@ from app import app, db
 from models import Usuarios, Agenda
 
 
-@app.route('/')
-def index():
-    lista = Usuarios.query.order_by(Usuarios.id)
-    return render_template('lista.html', titulo='Usuários', usuarios=lista)
+@app.route('/usuarios')
+def usuarios():
+    usuarios = Usuarios.query.order_by(Usuarios.id)
+    return render_template('usuarios.html', titulo='Usuários', usuarios=usuarios)
+
+
+@app.route('/agendamentos')
+def agendamentos():
+    agendamentos = Agenda.query.order_by(Agenda.id_agendamento)
+    return render_template('agendamentos.html', titulo='Agendamentos', agendamentos=agendamentos)
 
 
 @app.route('/novo')
@@ -55,6 +61,13 @@ def editar(id):
     usuario = Usuarios.query.filter_by(id=id).first()
     return render_template('editar.html', titulo=f'Editar dados de {usuario.nome}', usuario=usuario)
 
+@app.route('/editar-agendamento/<int:id_agendamento>')
+def editar_agendamento(id_agendamento):
+    if 'nickname' not in session or session['nickname'] == None:
+        return redirect(url_for('login', proxima=url_for('editar_agendamento', id_agendamento=id_agendamento)))
+    agendamento = Agenda.query.filter_by(id_agendamento=id_agendamento).first()
+    return render_template('editar_agendamento.html', titulo=f'Editar agendamento de {agendamento.nome_cliente}', agendamento=agendamento)
+
 
 @app.route('/atualizar', methods=['POST', ])
 def atualizar():
@@ -76,7 +89,12 @@ def atualizar():
     db.session.add(usuario)
     db.session.commit()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('usuarios'))
+
+
+@app.route('/atualizar-agendamento', methods=['POST', ])
+def atualizar_agendamento():
+    pass
 
 
 @app.route('/deletar/<int:id>')
@@ -88,7 +106,19 @@ def deletar(id):
     db.session.commit()
     flash('Usuário deletado com sucesso!')
 
-    return redirect(url_for('index'))
+    return redirect(url_for('usuarios'))
+
+
+@app.route('/deletar-agendamento/<int:id_agendamento>')
+def deletar_agendamento(id_agendamento):
+    if 'nickname' not in session or session['nickname'] == None:
+        return redirect(url_for('login'))
+
+    Agenda.query.filter_by(id_agendamento=id_agendamento).delete()
+    db.session.commit()
+    flash('Agendamento deletado com sucesso!')
+
+    return redirect(url_for('agendamentos'))
 
 
 @app.route('/login')
@@ -125,7 +155,7 @@ def sobre():
 
 @app.route('/agenda')
 def agenda():
-    return render_template('agenda.html', titulo='Agenda')
+    return render_template('agenda.html')
 
 
 @app.route('/agendar-horario', methods=['POST'])
@@ -141,7 +171,7 @@ def agendar_horario():
         nome_cliente, servico, data, hora, email_cliente, telefone_cliente)
 
     flash('Agendamento efetuado com sucesso!')
-    return redirect(url_for('agenda'))
+    return redirect(url_for('agendamentos'))
 
 
 @app.route('/logout')
@@ -152,3 +182,9 @@ def logout():
     session['telefone'] = None
     flash('Logout efetuado com sucesso!')
     return redirect(url_for('login'))
+
+
+@app.route('/perfil')
+def perfil():
+    usuarios = Usuarios.query.order_by(Usuarios.id)
+    return render_template('perfil.html', usuarios=usuarios)

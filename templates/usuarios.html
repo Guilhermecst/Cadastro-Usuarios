@@ -23,10 +23,12 @@
             <td>{{ usuario.telefone }}</td>
             <td>{{ usuario.nickname }}</td>
             <td>
-                <a class="link-lista" href="{{ url_for('editar', id=usuario.id) }}"><i class="ri-ball-pen-fill"
+                <div class="delete-edit">
+                <a class="link-icons" href="{{ url_for('editar', id=usuario.id) }}"><i class="ri-ball-pen-line"
                         title="Editar"></i></a>
-                <a class="link-lista" href="{{ url_for('deletar', id=usuario.id) }}"><i class="ri-delete-bin-2-fill"
+                <a class="link-icons" href="{{ url_for('deletar', id=usuario.id) }}"><i class="ri-delete-bin-2-line"
                         title="Deletar"></i></a>
+                </div>
             </td>
         </tr>
         {% endfor %}
