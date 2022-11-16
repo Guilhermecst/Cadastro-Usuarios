@@ -1,0 +1,238 @@
+{% extends "template.html" %}
+{% block conteudo %}
+
+<div class="points">
+    <div class="point"></div>
+    <h2>Agenda</h2>
+    <div class="point"></div>
+</div>
+<div id="container-calendar">
+    <div id="header">
+        <div id="monthDisplay"></div>
+
+        <div class="div-head-buttons">
+            <button id="backButton"></i>Voltar</button>
+            <button id="nextButton">Próximo</button>
+        </div>
+
+    </div>
+
+    <div class="weeks-days">
+
+        <div id="weekdays">
+            <div class="dom">Dom</div>
+            <div class="seg">Seg</div>
+            <div class="ter">Ter</div>
+            <div class="qua">Qua</div>
+            <div class="qui">Qui</div>
+            <div class="sex">Sex</div>
+            <div class="sab">Sab</div>
+        </div>
+
+        <div id="calendar"></div>
+
+    </div>
+
+    <div id="newEventModal">
+        <h2>Agende um serviço</h2>
+        <form action="{{ url_for('agendar_horario') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="servico">
+            <select name="servico" class="margin-top" required>
+                <option value="" selected disabled hidden>Selecione um serviço</option>
+                <option value="Corte">Corte</option>
+                <option value="Barba">Barba</option>
+            </select>
+            <input type="text" id="data" value="data" name="data" placeholder="Data" required>
+            <select name="hora" class="margin-top" required>
+                <option value="" selected disabled hidden>Selecione um horario</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+            </select>
+            <input type="text" name="nome_cliente" value="{{ session['nome'] }}" required>
+            <input type="text" name="email_cliente" value="{{ session['email'] }}" required>
+            <input type="text" name="telefone_cliente" value="{{ session['telefone'] }}" required>
+            <div class="div-buttons margin-top">
+                <button type="submit" id="saveButton">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
+                <button type="button" id="cancelButton" class="margin-left">Cancelar<i class="ri-close-circle-line margin-left"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div id="modalBackDrop"></div>
+
+</div>
+
+<script>
+
+    // variaveis globais
+
+    let nav = 0
+    let clicked = null
+    let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : []
+
+
+    // variavel do modal:
+    const newEvent = document.getElementById('newEventModal')
+    const backDrop = document.getElementById('modalBackDrop')
+    const servico = document.getElementById('servico')
+    // --------
+    const calendar = document.getElementById('calendar') // div calendar:
+    const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'] //array with weekdays:
+
+    //funções
+
+    function openModal(date) {
+        clicked = date
+        const eventDay = events.find((event) => event.date === clicked)
+        const data = document.getElementById('data')
+        data.setAttribute('value', clicked)
+
+        newEvent.style.display = 'block'
+
+        backDrop.style.display = 'block'
+    }
+
+    //função load() será chamada quando a pagina carregar:
+
+    function load() {
+        const date = new Date()
+
+
+        //mudar titulo do mês:
+        if (nav !== 0) {
+            date.setMonth(new Date().getMonth() + nav)
+        }
+
+        const day = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+
+
+
+        const daysMonth = new Date(year, month + 1, 0).getDate()
+        const firstDayMonth = new Date(year, month, 1)
+
+
+        const dateString = firstDayMonth.toLocaleDateString('pt-br', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+        })
+
+
+        const paddinDays = weekdays.indexOf(dateString.split(', ')[0])
+
+        //mostrar mês e ano:
+        document.getElementById('monthDisplay').innerText = `${date.toLocaleDateString('pt-br', { month: 'long' })}, ${year}`
+
+
+        calendar.innerHTML = ''
+
+        // criando uma div com os dias:
+
+        for (let i = 1; i <= paddinDays + daysMonth; i++) {
+            const dayS = document.createElement('div')
+            dayS.classList.add('day')
+            const dayString = `${i - paddinDays}/${month + 1}/${year}`
+
+
+
+            //condicional para criar os dias de um mês:
+
+            if (i > paddinDays) {
+                dayS.innerText = i - paddinDays
+
+
+                const eventDay = events.find(event => event.date === dayString)
+
+                if (i - paddinDays === day && nav === 0) {
+                    dayS.id = 'currentDay'
+                }
+
+                if (i - paddinDays < day && nav === 0) {
+                    dayS.classList.toggle('gray-day')
+                }
+
+                if (nav < 0) {
+                    dayS.classList.toggle('gray-day')
+                }
+
+                if (nav > 2) {
+                    dayS.classList.toggle('gray-day')
+                    document.getElementsByTagName("h2")[0].innerText = 'Agenda fechada'
+                }
+
+                if (nav < 3) {
+                    document.getElementsByTagName("h2")[0].innerText = 'Agenda'
+                }
+
+                if (eventDay) {
+                    const eventDiv = document.createElement('div')
+                    eventDiv.classList.add('event')
+                    eventDiv.innerText = eventDay.title
+                    dayS.appendChild(eventDiv)
+
+                }
+
+                if ((i - paddinDays >= day && nav === 0) || (nav > 0 && nav < 3)) {
+                    dayS.addEventListener('click', () => openModal(dayString))
+                }
+
+            } else {
+                dayS.classList.add('padding')
+            }
+
+            calendar.appendChild(dayS)
+
+        }
+    }
+
+    function closeModal() {
+        servico.classList.remove('error')
+        newEvent.style.display = 'none'
+        backDrop.style.display = 'none'
+
+        servico.value = ''
+        clicked = null
+        load()
+
+    }
+
+    // botões 
+
+    function buttons() {
+        document.getElementById('backButton').addEventListener('click', () => {
+            nav--
+            load()
+
+        })
+
+        document.getElementById('nextButton').addEventListener('click', () => {
+            nav++
+            load()
+
+        })
+
+        document.getElementById('saveButton').addEventListener('click', () => saveEvent())
+
+        document.getElementById('cancelButton').addEventListener('click', () => closeModal())
+
+    }
+    buttons()
+    load()
+</script>
+
+</body>
+
+</html>
+{% endblock %}

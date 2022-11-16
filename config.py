@@ -6,5 +6,5 @@ SQLALCHEMY_DATABASE_URI = \
         usuario = 'root',
         senha = 'SuperAdmin&123',
         servidor = 'localhost',
-        database = 'usuarios'
+        database = 'salao'
     )

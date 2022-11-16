@@ -4,16 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro</title>
+    <title>Salão</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastrar</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://example.com/example-framework.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
     <script>
 
@@ -160,77 +154,151 @@
     <div class="container">
         <div class="column">
 
-            <div class="menu">
-                <div id="menu-bar">
-                    <div id="menu" onclick="onClickMenu()">
-                        <div id="bar1" class="bar"></div>
-                        <div id="bar2" class="bar"></div>
-                        <div id="bar3" class="bar"></div>
-
-                    </div>
-                    <ul class="nav" id="nav">
-
-                        {% if session['usuario_logado'] != None %}
-                        <h4>Bem vindo {{ session['usuario_logado'] }}!</h4>
-                        {% endif %}
-
-                        <div class="icon-link">
-                            <i class="ri-home-4-line menu-icon"></i>
-                            <li><a href="{{ url_for('index') }}" class="a-menu">Home</a></li>
-                        </div>
-
-                        <div class="icon-link">
-                            <i class="ri-login-box-line menu-icon"></i>
-                            <li><a href="{{ url_for('login') }}" class="a-menu">Login</a>
-                            </li>
-                        </div>
-
-                        <div class="icon-link">
-                            <i class="ri-user-add-line menu-icon"></i>
-                            <li><a href="{{ url_for('novo') }}" class="a-menu">Cadastre-se</a>
-                            </li>
-                        </div>
-
-                        <div class="icon-link">
-                            <i class="ri-newspaper-line menu-icon"></i>
-                            <li><a href="{{ url_for('sobre') }}" class="a-menu">Sobre</a>
-                            </li>
-                        </div>
-
-                        <div class="icon-link">
-                            <i class="ri-logout-box-line menu-icon"></i>
-                            <li><a href="{{ url_for('logout') }}" class="a-menu">Sair</a>
-                            </li>
-                        </div>
-
-                    </ul>
-
+            {% if session['nickname'] == None %}
+            <div class="sidebar">
+                <div class="logo-details">
+                    <h2 class="menu-msg">Bem vindo!</h2>
+                    <i class='ri-menu-fill' id="btn"></i>
                 </div>
-                <div class="menu-bg" id="menu-bg"></div>
-                <script>
+                <ul class="nav-list">
 
-                    function onClickMenu() {
-                        document.getElementById("menu").classList.toggle("change");
-                        document.getElementById("nav").classList.toggle("change");
-                        document.getElementById("menu-bg").classList.toggle("change-bg")
-                    }
+                    <li>
+                        <a href="{{ url_for('login') }}">
+                            <i class='ri-login-box-line'></i>
+                            <span class="links_name">Login</span>
+                        </a>
+                        <span class="tooltip">Login</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('novo') }}">
+                            <i class='ri-user-add-line'></i>
+                            <span class="links_name">Cadastre-se</span>
+                        </a>
+                        <span class="tooltip">Cadastre-se</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('sobre') }}">
+                            <i class='ri-newspaper-line'></i>
+                            <span class="links_name">Sobre</span>
+                        </a>
+                        <span class="tooltip">Sobre</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}">
+                            <i class='ri-question-line'></i>
+                            <span class="links_name">Ajuda</span>
+                        </a>
+                        <span class="tooltip">Ajuda</span>
+                    </li>
 
-                </script>
-
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul id="messages" class="list-unstyled">
-                    {% for message in messages %}
-                    <li class="alert alert-success">{{ message }}</li>
-                    {% endfor %}
-                </ul><br>
-                {% endif %}
-                {% endwith %}
-
-                {% block conteudo %}{% endblock %}
-
+                </ul>
             </div>
+
+            {% endif %}
+
+            {% if session['nickname'] != None %}
+            <div class="sidebar"><br>
+                <div class="logo-details">
+                    <a class="perfil-menu" href="{{ url_for('perfil') }}">
+                        <i class='ri-user-line icon'></i>
+                        <div class="menu-msg">{{ session['nome'] }}</div>
+                    </a>
+                    <i class='ri-menu-fill' id="btn"></i>
+                </div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="{{ url_for('perfil') }}">
+                            <i class='ri-user-line'></i>
+                            <span class="links_name">Perfil</span>
+                        </a>
+                        <span class="tooltip">Perfil</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('agenda') }}">
+                            <i class='ri-calendar-2-line'></i>
+                            <span class="links_name">Agenda</span>
+                        </a>
+                        <span class="tooltip">Agenda</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='ri-notification-3-line'></i>
+                            <span class="links_name">Notificações</span>
+                        </a>
+                        <span class="tooltip">Notificações</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='ri-chat-3-line'></i>
+                            <span class="links_name">Mensagens</span>
+                        </a>
+                        <span class="tooltip">Mensagens</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('sobre') }}">
+                            <i class='ri-newspaper-line'></i>
+                            <span class="links_name">Sobre</span>
+                        </a>
+                        <span class="tooltip">Sobre</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='ri-settings-3-line'></i>
+                            <span class="links_name">Configurações</span>
+                        </a>
+                        <span class="tooltip">Configurações</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}">
+                            <i class='ri-question-line'></i>
+                            <span class="links_name">Ajuda</span>
+                        </a>
+                        <span class="tooltip">Ajuda</span>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}">
+                            <i class='ri-logout-box-line'></i>
+                            <span class="links_name">Sair</span>
+                        </a>
+                        <span class="tooltip">Sair</span>
+                    </li>
+
+                </ul>
+            </div>
+            {% endif %}
+
+            <script>
+                let sidebar = document.querySelector(".sidebar");
+                let closeBtn = document.querySelector("#btn");
+
+                closeBtn.addEventListener("click", () => {
+                    sidebar.classList.toggle("open");
+                    menuBtnChange();
+                });
+
+                function menuBtnChange() {
+                    if (sidebar.classList.contains("open")) {
+                        closeBtn.classList.replace("ri-menu-fill", "ri-arrow-left-line");
+                    } else {
+                        closeBtn.classList.replace("ri-arrow-left-line", "ri-menu-fill");
+                    }
+                }
+            </script>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul id="messages" class="list-unstyled">
+                {% for message in messages %}
+                <li class="alert alert-success">{{ message }}</li>
+                {% endfor %}
+            </ul><br>
+            {% endif %}
+            {% endwith %}
+
+            {% block conteudo %}{% endblock %}
+
         </div>
+    </div>
 </body>
 
 </html>
