@@ -11,7 +11,7 @@
         <div id="monthDisplay"></div>
 
         <div class="div-head-buttons">
-            <button id="backButton">Voltar</button>
+            <button id="backButton"></i>Voltar</button>
             <button id="nextButton">Próximo</button>
         </div>
 
@@ -60,13 +60,13 @@
             <input type="text" name="nome_cliente" value="{{ session['nome'] }}" required>
             <input type="text" name="email_cliente" value="{{ session['email'] }}" required>
             <input type="text" name="telefone_cliente" value="{{ session['telefone'] }}" required>
+            <input type="hidden" name="id_cliente" value="{{ session['id'] }}" required>
             <div class="div-buttons margin-top">
-                <button type="submit" id="saveButton">Salvar</button>
+                <button type="submit" id="saveButton">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
+                <button type="button" id="cancelButton" class="margin-left">Cancelar<i
+                        class="ri-close-circle-line margin-left"></i></button>
             </div>
         </form>
-        <div class="div-buttons">
-            <button id="cancelButton">Cancelar</button>
-        </div>
     </div>
 
     <div id="modalBackDrop"></div>
@@ -148,12 +148,10 @@
             const dayString = `${i - paddinDays}/${month + 1}/${year}`
 
 
-
             //condicional para criar os dias de um mês:
 
             if (i > paddinDays) {
                 dayS.innerText = i - paddinDays
-
 
                 const eventDay = events.find(event => event.date === dayString)
 

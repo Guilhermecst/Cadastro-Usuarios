@@ -285,12 +285,6 @@ h4 {
     color: #191414;
 }
 
-.button-icon {
-    display: flex;
-    align-items: center;
-    margin-left: 5px;
-}
-
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -443,16 +437,22 @@ a:hover {
 }
 
 .link-icons {
-    display: block;
     color: #191414;
     margin: 0.2rem;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
 }
 
 .link-icons:hover {
     color: #1DB954;
 }
 
-.link-icons:hover .ri-delete-bin-2-line {
+.ri-delete-bin-5-line:hover {
+    color: #e50914;
+}
+
+.ri-close-circle-line:hover {
     color: #e50914;
 }
 
@@ -517,15 +517,28 @@ p {
     color: white;
 }
 
+.div-buttons {
+    display: flex;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
 .div-buttons button {
     display: flex;
-    width: 75px;
-    cursor: pointer;;
+    align-items: center;
+    cursor: pointer;
     border: none;
     outline: none;
     padding: 5px;
     border-radius: 5px;
     color: white;
+    background-color: #1DB954;
+    border-radius: 6px;
+    padding-inline: 10px;
 }
 
 .perfil {
@@ -634,7 +647,7 @@ p {
 }
 
 .day+#currentDay:hover {
-    background-color: #34495e;
+    background-color: #1D3B54;
 }
 
 .event {
@@ -647,8 +660,7 @@ p {
     box-shadow: none !important;
 }
 
-#newEventModal,
-#deleteEventModal {
+#newEventModal {
     display: none;
     z-index: 20;
     padding: 25px;
@@ -671,16 +683,6 @@ p {
     outline: none;
     border: none;
     box-shadow: 0px 0px 3px gray;
-}
-
-#cancelButton,
-#deleteButton {
-    background-color: var(--header-color);
-}
-
-#saveButton,
-#closeButton {
-    background-color: var(--header-button);
 }
 
 #eventText {

@@ -3,7 +3,6 @@ from app import db
 
 class Usuarios(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nickname = db.Column(db.String(20), primary_key=True, nullable=False)
     nome = db.Column(db.String(20), nullable=False)
     sobrenome = db.Column(db.String(50), nullable=False)
     genero = db.Column(db.String(1), nullable=False)
@@ -18,30 +17,35 @@ class Usuarios(db.Model):
     numero = db.Column(db.String(5), nullable=False)
     complemento = db.Column(db.String(15))
     bairro = db.Column(db.String(30), nullable=False)
+    nickname = db.Column(db.String(20), nullable=False)
     senha = db.Column(db.String(50), nullable=False)
+    agendamento = db.relationship('Agendamentos', backref='id', lazy=True)
 
     def adicionar_usuario(nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, nickname, senha):
         usuario = Usuarios(nome=nome, sobrenome=sobrenome, data_nasc=data_nasc, genero=genero,
-                             email=email, telefone=telefone,
-                             cpf=cpf, cep=cep, uf=uf, cidade=cidade,
-                             rua=rua, numero=numero, complemento=complemento,
-                             bairro=bairro, nickname=nickname, senha=senha)
+                           email=email, telefone=telefone,
+                           cpf=cpf, cep=cep, uf=uf, cidade=cidade,
+                           rua=rua, numero=numero, complemento=complemento,
+                           bairro=bairro, nickname=nickname, senha=senha)
         db.session.add(usuario)
         db.session.commit()
 
 
-class Agenda(db.Model):
-    id_agendamento = db.Column(db.Integer, primary_key=True, autoincrement=True)
+class Agendamentos(db.Model):
+    id_agendamento = db.Column(
+        db.Integer, primary_key=True, autoincrement=True)
     nome_cliente = db.Column(db.String(20), nullable=False)
     servico = db.Column(db.String(15), nullable=False)
     data = db.Column(db.String(10), nullable=False)
     hora = db.Column(db.String(5), nullable=False)
     email_cliente = db.Column(db.String(120), nullable=False)
     telefone_cliente = db.Column(db.String(15), nullable=False)
+    id_cliente = db.Column(db.Integer, db.ForeignKey('usuarios.id'),
+                           nullable=False)
 
-    def adicionar_agendamento(nome_cliente, servico, data, hora, email_cliente, telefone_cliente):
-        agendamento = Agenda(nome_cliente=nome_cliente, servico=servico, data=data,
-                             hora=hora, email_cliente=email_cliente, telefone_cliente=telefone_cliente)
+    def adicionar_agendamento(nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente):
+        agendamento = Agendamentos(nome_cliente=nome_cliente, servico=servico, data=data,
+                                   hora=hora, email_cliente=email_cliente, telefone_cliente=telefone_cliente, id_cliente=id_cliente)
         db.session.add(agendamento)
         db.session.commit()
 

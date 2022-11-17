@@ -14,12 +14,11 @@
     <p><i class="ri-phone-line"></i><span class="margin-left">Telefone: {{ session['telefone'] }}</span></p>
 </div><br>
 
+
 <div class="two-buttons">
-    <a href="{{ url_for('usuarios') }}" class="btn btn-perfil">Voltar<i class="ri-arrow-left-line button-icon"></i></a><br>
-    {% for usuario in usuarios %}
-    <a href="{{ url_for('editar', id=usuario.id) }}" class="btn margin-left btn-perfil">Editar dados<i
+    <a href="{{ url_for('editar', id=session['id']) }}" class="btn btn-perfil">Editar dados<i
             class="ri-ball-pen-line button-icon"></i></a>
-    {% endfor %}
+    <a href="{{ url_for('usuarios') }}" class="btn margin-left btn-perfil">Voltar<i class="ri-arrow-left-line button-icon"></i></a>
 </div>
 
 {% endblock %}

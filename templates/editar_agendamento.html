@@ -4,7 +4,8 @@
     <h2>{{ titulo }}</h2>
 </div>
 <form class="form" action="{{ url_for('atualizar_agendamento') }}" method="post" enctype="multipart/form-data">
-    <input type="hidden" id="servico">
+    <input type="hidden" name="id_agendamento" value="{{ agendamento.id_agendamento }}" required>
+    <input type="hidden" name="id_cliente" value="{{ session['id'] }}" required>
     <label for="">
         <select name="servico" value="" required>
             <option selected disabled hidden>Selecione um serviço</option>
@@ -35,8 +36,8 @@
     </label>
 
     <div class="two-buttons">
-        <button type="submit" class="btn">Salvar<i class="ri-save-3-fill button-icon"></i></button>
-        <a href="{{ url_for('agendamentos') }}" class="btn margin-left">Cancelar<i class="ri-close-circle-line button-icon"></i></a><br>
+        <button type="submit" class="btn">Salvar<i class="ri-save-3-fill link-icons"></i></button>
+        <a href="{{ url_for('agendamentos') }}" class="btn margin-left">Cancelar<i class="ri-close-circle-line link-icons"></i></a><br>
     </div>
 </form>
 

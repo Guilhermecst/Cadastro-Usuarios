@@ -155,20 +155,13 @@
         <div class="column">
 
             {% if session['nickname'] == None %}
-            <div class="sidebar">
+            <div class="sidebar"><br>
                 <div class="logo-details">
-                    <h2 class="menu-msg">Bem vindo!</h2>
+                    <h2 class="menu-msg margin-left">Bem vindo!</h2>
                     <i class='ri-menu-fill' id="btn"></i>
                 </div>
                 <ul class="nav-list">
 
-                    <li>
-                        <a href="{{ url_for('usuarios') }}">
-                            <i class='ri-home-4-line'></i>
-                            <span class="links_name">Home</span>
-                        </a>
-                        <span class="tooltip">Home</span>
-                    </li>
                     <li>
                         <a href="{{ url_for('login') }}">
                             <i class='ri-login-box-line'></i>
@@ -189,13 +182,6 @@
                             <span class="links_name">Sobre</span>
                         </a>
                         <span class="tooltip">Sobre</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='ri-settings-3-line'></i>
-                            <span class="links_name">Configurações</span>
-                        </a>
-                        <span class="tooltip">Configurações</span>
                     </li>
                     <li>
                         <a href="{{ url_for('logout') }}">
