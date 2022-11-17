@@ -43,11 +43,11 @@ TABLES['usuarios'] = ('''
       `complemento` VARCHAR(15),
       `bairro` VARCHAR(30) NOT NULL,
       `senha` VARCHAR(50) NOT NULL,
-      PRIMARY KEY (`id`, `nickname`)
+      PRIMARY KEY (`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
-TABLES['agenda'] = ('''
-      CREATE TABLE `agenda` (
+TABLES['agendamentos'] = ('''
+      CREATE TABLE `agendamentos` (
       `id_agendamento` INT(5) NOT NULL AUTO_INCREMENT,
       `data` VARCHAR(10) NOT NULL,
       `servico` VARCHAR(15) NOT NULL,
@@ -55,7 +55,9 @@ TABLES['agenda'] = ('''
       `nome_cliente` VARCHAR(20) NOT NULL,
       `email_cliente` VARCHAR(120) NOT NULL,
       `telefone_cliente` VARCHAR(15) NOT NULL,
-      PRIMARY KEY (`id_agendamento`)
+      `id_cliente` INT(5) NOT NULL,
+      PRIMARY KEY (`id_agendamento`),
+      CONSTRAINT FK_usuario_id_nickname FOREIGN KEY (`id_cliente`) REFERENCES Usuarios(`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 for tabela_nome in TABLES:

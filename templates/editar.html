@@ -6,6 +6,7 @@
 
 <form class="form" action="{{ url_for('atualizar') }}" method="post">
 
+  <input type="hidden" name="id" value="{{ usuario.id }}" required>
   <h4>Dados de contato</h4>
   <label class="label-input" for="">
     <input type="email" maxlength="100" id="email" name="email" placeholder="Email" required

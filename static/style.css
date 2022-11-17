@@ -285,12 +285,6 @@ h4 {
     color: #191414;
 }
 
-.button-icon {
-    display: flex;
-    align-items: center;
-    margin-left: 5px;
-}
-
 .buttons {
     display: flex;
     justify-content: space-between;
@@ -443,17 +437,22 @@ a:hover {
 }
 
 .link-icons {
-    display: block;
     color: #191414;
     margin: 0.2rem;
     font-size: 17px;
+    display: flex;
+    align-items: center;
 }
 
 .link-icons:hover {
     color: #1DB954;
 }
 
-.link-icons:hover .ri-delete-bin-5-line {
+.ri-delete-bin-5-line:hover {
+    color: #e50914;
+}
+
+.ri-close-circle-line:hover {
     color: #e50914;
 }
 
@@ -520,6 +519,12 @@ p {
 
 .div-buttons {
     display: flex;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
 }
 
 .div-buttons button {

@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from app import app, db
-from models import Usuarios, Agenda
+from models import Usuarios, Agendamentos
 
 
 # ------------------------------------------------------------------
@@ -8,13 +8,17 @@ from models import Usuarios, Agenda
 
 @app.route('/usuarios')
 def usuarios():
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('usuarios')))
     usuarios = Usuarios.query.order_by(Usuarios.id)
     return render_template('usuarios.html', titulo='Usuários', usuarios=usuarios)
 
 
 @app.route('/agendamentos')
 def agendamentos():
-    agendamentos = Agenda.query.order_by(Agenda.id_agendamento)
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('agendamentos')))
+    agendamentos = Agendamentos.query.order_by(Agendamentos.id_agendamento)
     return render_template('agendamentos.html', titulo='Agendamentos', agendamentos=agendamentos)
 
 
@@ -24,6 +28,13 @@ def agendamentos():
 @app.route('/novo')
 def novo():
     return render_template('novo.html', titulo='Novo usuário')
+
+
+@app.route('/agenda')
+def agenda():
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('agenda')))
+    return render_template('agenda.html')
 
 
 @app.route('/criar', methods=['POST'])
@@ -50,7 +61,7 @@ def criar():
 
     if usuario:
         flash('Usuário já existe')
-        return redirect(url_for('criar'))
+        return redirect(url_for('novo'))
 
     Usuarios.adicionar_usuario(nome, sobrenome, data_nasc, genero, email, telefone,
                                cpf, cep, uf, cidade, rua, numero, complemento, bairro, nickname, senha)
@@ -66,9 +77,10 @@ def agendar_horario():
     nome_cliente = request.form['nome_cliente']
     email_cliente = request.form['email_cliente']
     telefone_cliente = request.form['telefone_cliente']
+    id_cliente = request.form['id_cliente']
 
-    Agenda.adicionar_agendamento(
-        nome_cliente, servico, data, hora, email_cliente, telefone_cliente)
+    Agendamentos.adicionar_agendamento(
+        nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente)
 
     flash('Agendamento efetuado com sucesso!')
     return redirect(url_for('agendamentos'))
@@ -79,7 +91,7 @@ def agendar_horario():
 
 @app.route('/editar/<int:id>')
 def editar(id):
-    if 'nickname' not in session or session['nickname'] == None:
+    if 'id' not in session or session['id'] == None:
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
     usuario = Usuarios.query.filter_by(id=id).first()
     if session['id'] != int(id):
@@ -90,16 +102,20 @@ def editar(id):
 
 @app.route('/editar-agendamento/<int:id_agendamento>')
 def editar_agendamento(id_agendamento):
-    if 'nickname' not in session or session['nickname'] == None:
+    if 'id' not in session or session['id'] == None:
         return redirect(url_for('login', proxima=url_for('editar_agendamento', id_agendamento=id_agendamento)))
-    agendamento = Agenda.query.filter_by(id_agendamento=id_agendamento).first()
+    agendamento = Agendamentos.query.filter_by(
+        id_agendamento=id_agendamento).first()
+    if session['id'] != int(agendamento.id_cliente):
+        flash('Você não pode editar o agendamento de outro usuário')
+        return redirect(url_for('agendamentos'))
     return render_template('editar_agendamento.html', titulo=f'Editar agendamento de {agendamento.nome_cliente}', agendamento=agendamento)
 
 
 @app.route('/atualizar', methods=['POST', ])
 def atualizar():
     usuario = Usuarios.query.filter_by(
-        nickname=request.form['nickname']).first()
+        id=request.form['id']).first()
     usuario.email = request.form['email']
     usuario.telefone = request.form['telefone']
     usuario.cep = request.form['cep']
@@ -116,12 +132,27 @@ def atualizar():
     db.session.add(usuario)
     db.session.commit()
 
+    flash(f'Dados de {usuario.nome} editados com sucesso!')
     return redirect(url_for('usuarios'))
 
 
 @app.route('/atualizar-agendamento', methods=['POST', ])
 def atualizar_agendamento():
-    pass
+    agendamento = Agendamentos.query.filter_by(
+        id_agendamento=request.form['id_agendamento']).first()
+    agendamento.servico = request.form['servico']
+    agendamento.data = request.form['data']
+    agendamento.hora = request.form['hora']
+    agendamento.nome_cliente = request.form['nome_cliente']
+    agendamento.email_cliente = request.form['email_cliente']
+    agendamento.telefone_cliente = request.form['telefone_cliente']
+    agendamento.id_cliente = request.form['id_cliente']
+
+    db.session.add(agendamento)
+    db.session.commit()
+
+    flash(f'Agendamento de {agendamento.nome_cliente} editado com sucesso!')
+    return redirect(url_for('agendamentos'))
 
 
 # ------------------------------------------------------------------
@@ -129,11 +160,10 @@ def atualizar_agendamento():
 
 @app.route('/deletar/<int:id>')
 def deletar(id):
-    if 'nickname' not in session or session['nickname'] == None:
-        return redirect(url_for('login'))
-
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('deletar'), id=id))
     if session['id'] != int(id):
-        flash(session['id'])
+        flash('Você não pode deletar os dados de outro usuário')
         return redirect(url_for('usuarios'))
     Usuarios.query.filter_by(id=id).delete()
     db.session.commit()
@@ -143,10 +173,14 @@ def deletar(id):
 
 @app.route('/deletar-agendamento/<int:id_agendamento>')
 def deletar_agendamento(id_agendamento):
-    if 'nickname' not in session or session['nickname'] == None:
-        return redirect(url_for('login'))
-
-    Agenda.query.filter_by(id_agendamento=id_agendamento).delete()
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('deletar-agendamento'), id_agendamento=id_agendamento))
+    agendamento = Agendamentos.query.filter_by(
+        id_agendamento=id_agendamento).first()
+    if session['id'] != int(agendamento.id_cliente):
+        flash('Você não pode editar o agendamento de outro usuário')
+        return redirect(url_for('agendamentos'))
+    Agendamentos.query.filter_by(id_agendamento=id_agendamento).delete()
     db.session.commit()
     flash('Agendamento deletado com sucesso!')
 
@@ -202,12 +236,9 @@ def sobre():
     return render_template('sobre.html', titulo='Sobre')
 
 
-@app.route('/agenda')
-def agenda():
-    return render_template('agenda.html')
-
-
 @app.route('/perfil')
 def perfil():
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('perfil')))
     usuarios = Usuarios.query.order_by(Usuarios.id)
     return render_template('perfil.html', usuarios=usuarios)

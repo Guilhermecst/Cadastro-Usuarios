@@ -24,9 +24,9 @@
             <td>{{ usuario.nickname }}</td>
             <td>
                 <div class="delete-edit">
-                <a class="link-icons" href="{{ url_for('editar', id=usuario.id) }}"><i class="ri-ball-pen-line"
+                <a href="{{ url_for('editar', id=usuario.id) }}"><i class="ri-ball-pen-line link-icons"
                         title="Editar"></i></a>
-                <a class="link-icons" href="{{ url_for('deletar', id=usuario.id) }}"><i class="ri-delete-bin-5-line"
+                <a href="{{ url_for('deletar', id=usuario.id) }}"><i class="ri-delete-bin-5-line link-icons"
                         title="Deletar"></i></a>
                 </div>
             </td>
