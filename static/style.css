@@ -10,7 +10,7 @@
 body {
     background-color: #1DB954;
     height: 100vh;
-    background: linear-gradient(140deg, #1DB954, #1D9B54, #1D7B54, #1D5B54, #1D3B54);
+    background: linear-gradient(140deg, #1DB954, #1DBB54, #1D9B54, #1D7B54, #1D5B54, #1D3B54);
     background-attachment: fixed;
 }
 
@@ -144,7 +144,7 @@ body {
     border: none;
     border-radius: 12px;
     transition: all 0.5s ease;
-    background: #34495e;
+    background: #1D3B54;
 }
 
 .sidebar.open input {
@@ -154,26 +154,6 @@ body {
 
 .sidebar.open input:hover {
     box-shadow: none;
-}
-
-.sidebar .ri-search-2-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 22px;
-    background: #34495e;
-    color: #ecf0f1;
-}
-
-.sidebar.open .ri-search-2-line:hover {
-    background: #34495e;
-    color: #ecf0f1;
-}
-
-.sidebar .ri-search-2-line:hover {
-    background: #ecf0f1;
-    color: #191414;
 }
 
 .sidebar li a {
@@ -243,17 +223,6 @@ h4 {
     position: relative;
 }
 
-.content::before {
-    content: "";
-    position: absolute;
-    background-color: #58af9b;
-    width: 40%;
-    height: 100%;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    left: 0;
-}
-
 .title {
     font-size: 28px;
     font-weight: bold;
@@ -299,17 +268,13 @@ h4 {
     border-radius: 15px;
 }
 
-.column-login {
-    width: 30%;
-}
-
 .column-usuarios {
     width: auto;
 }
 
 th {
     color: #ecf0f1;
-    background-color: #34495e;
+    background-color: #1D3B54;
     padding-inline: 10px;
 }
 
@@ -514,7 +479,7 @@ p {
     outline: none;
     padding: 5px;
     border-radius: 5px;
-    color: white;
+    color: #ecf0f1;
 }
 
 .div-buttons {
@@ -535,10 +500,19 @@ p {
     outline: none;
     padding: 5px;
     border-radius: 5px;
-    color: white;
+    color: #ecf0f1;
     background-color: #1DB954;
     border-radius: 6px;
     padding-inline: 10px;
+}
+
+.div-buttons button:hover {
+    color: #191414;
+    background-color: #ecf0f1;
+}
+
+.div-buttons .ri-close-circle-line:hover {
+    color: #191414;
 }
 
 .perfil {
@@ -571,8 +545,16 @@ p {
     background-color: #1DB954;
 }
 
+#header button:hover {
+    background-color: #ecf0f1;
+}
+
+.div-head-buttons button:hover {
+    color: #191414;
+}
+
 #container-calendar {
-    width: 420px;
+    width: 430px;
 }
 
 #weekdays {
@@ -580,6 +562,9 @@ p {
     display: flex;
     color: #ecf0f1;
     font-size: 15px;
+    border-radius: 10px;
+    border: solid #ecf0f1;
+    margin-bottom: 7px;
 }
 
 .dom {
@@ -602,6 +587,8 @@ p {
     margin: auto;
     display: flex;
     flex-wrap: wrap;
+    border-radius: 15px;
+    border: solid #ecf0f1;
 }
 
 #calendar button {
@@ -626,6 +613,7 @@ p {
     flex-direction: column;
     border-radius: 15%;
     align-items: flex-end;
+    border: solid #919191;
 }
 
 .day:hover {
@@ -634,16 +622,16 @@ p {
 }
 
 .day+.gray-day {
-    background-color: gray;
-}
-
-.day+.gray-day:hover {
-    color: #191414;
+    color: #ecf0f1;
+    background-color: #919191;
+    border: solid #ecf0f1;
+    cursor: not-allowed;
 }
 
 .day+#currentDay {
     background-color: #1DB954;
     color: #ecf0f1;
+    border: solid #ecf0f1;
 }
 
 .day+#currentDay:hover {
@@ -658,6 +646,7 @@ p {
     cursor: default !important;
     background-color: var(--body-color) !important;
     box-shadow: none !important;
+    border: none;
 }
 
 #newEventModal {
@@ -672,6 +661,22 @@ p {
     left: calc(50% - 175px);
     position: absolute;
     font-family: sans-serif;
+}
+
+#sundays {
+    display: none;
+    padding: 25px;
+    background-color: #ecf0f1;
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 20px;
+    left: calc(50% - 175px);
+    position: absolute;
+}
+
+#sunday-msg {
+    color: #191414;
 }
 
 #eventTitle {

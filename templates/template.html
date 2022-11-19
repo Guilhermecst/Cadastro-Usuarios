@@ -154,7 +154,7 @@
     <div class="container">
         <div class="column">
 
-            {% if session['nickname'] == None %}
+            {% if session['id'] == None %}
             <div class="sidebar"><br>
                 <div class="logo-details">
                     <h2 class="menu-msg margin-left">Bem vindo!</h2>
@@ -196,7 +196,7 @@
 
             {% endif %}
 
-            {% if session['nickname'] != None %}
+            {% if session['id'] != None %}
             <div class="sidebar"><br>
                 <div class="logo-details">
                     <a class="perfil-menu" href="{{ url_for('perfil') }}">
