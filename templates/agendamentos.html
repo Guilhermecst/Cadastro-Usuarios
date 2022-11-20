@@ -28,10 +28,44 @@
             <td>{{ agendamento.telefone_cliente }}</td>
             <td>
                 <div class="delete-edit">
-                    <a class="link-icons" href="{{ url_for('editar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i class="ri-ball-pen-line link-icons"
-                            title="Editar agendamento"></i></a>
-                    <a class="link-icons" href="{{ url_for('deletar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i class="ri-close-circle-line link-icons"
-                            title="Cancelar agendamento"></i></a>
+                    <a href="{{ url_for('editar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
+                            class="ri-ball-pen-line link-icons" title="Editar agendamento"></i></a>
+                    {% if session['id'] == agendamento.id_cliente %}
+                    <button id="btn-delete" class="link-icons"><i class="ri-close-circle-line link-icons"
+                            title="Cancelar agendamento"></i></button>
+
+                    <div id="div-delete">
+                        <h4>Tem certeza que deseja cancelar o agendamento?</h4>
+                        <div class="div-delete-buttons">
+                            <a id="btn-sim"
+                                href="{{ url_for('deletar_agendamento', id_agendamento=agendamento.id_agendamento) }}">Sim</a>
+                            <button id="btn-nao">Não</button>
+                        </div>
+
+                        <script>
+                            const divDelete = document.getElementById('div-delete')
+                            const btnSim = document.getElementById('btn-sim')
+                            const btnNao = document.getElementById('btn-nao')
+
+                            function openDelete() {
+                                divDelete.style.display = 'block'
+                            }
+
+                            function closeDelete() {
+                                divDelete.style.display = 'none'
+                            }
+
+                            document.getElementById('btn-delete').addEventListener('click', () => openDelete())
+
+                            document.getElementById('btn-nao').addEventListener('click', () => closeDelete())
+
+                        </script>
+
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('deletar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
+                            class="ri-close-circle-line link-icons" title="Cancelar agendamento"></i></a>
+                    {% endif %}
                 </div>
             </td>
         </tr>

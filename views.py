@@ -178,7 +178,7 @@ def deletar_agendamento(id_agendamento):
     agendamento = Agendamentos.query.filter_by(
         id_agendamento=id_agendamento).first()
     if session['id'] != int(agendamento.id_cliente):
-        flash('Você não pode editar o agendamento de outro usuário')
+        flash('Você não pode deletar o agendamento de outro usuário')
         return redirect(url_for('agendamentos'))
     Agendamentos.query.filter_by(id_agendamento=id_agendamento).delete()
     db.session.commit()

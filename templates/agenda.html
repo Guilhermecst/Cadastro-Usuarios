@@ -62,7 +62,7 @@
             <input type="text" name="telefone_cliente" value="{{ session['telefone'] }}" required>
             <input type="hidden" name="id_cliente" value="{{ session['id'] }}" required>
             <div class="div-buttons margin-top">
-                <button type="submit" id="saveButton">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
+                <button type="submit">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
                 <button type="button" id="cancelButton" class="margin-left">Cancelar<i
                         class="ri-close-circle-line margin-left"></i></button>
             </div>
@@ -187,8 +187,7 @@
                 if (i == 1 || i == 8 || i == 15 || i == 22 || i == 29 || i == 36) {
                     dayS.setAttribute('style', 'color: #ecf0f1; \
                                                 background-color: #919191; \
-                                                cursor: not-allowed; \
-                                                border: solid #ecf0f1')
+                                                cursor: not-allowed;')
                     dayS.addEventListener('click', () => openSunday())
                     dayS.addEventListener('click', () => closeSunday())
                 }
@@ -242,8 +241,6 @@
             load()
 
         })
-
-        document.getElementById('saveButton').addEventListener('click', () => saveEvent())
 
         document.getElementById('cancelButton').addEventListener('click', () => closeModal())
 

@@ -407,6 +407,8 @@ a:hover {
     font-size: 17px;
     display: flex;
     align-items: center;
+    border: none;
+    cursor: pointer;
 }
 
 .link-icons:hover {
@@ -613,7 +615,6 @@ p {
     flex-direction: column;
     border-radius: 15%;
     align-items: flex-end;
-    border: solid #919191;
 }
 
 .day:hover {
@@ -624,14 +625,12 @@ p {
 .day+.gray-day {
     color: #ecf0f1;
     background-color: #919191;
-    border: solid #ecf0f1;
     cursor: not-allowed;
 }
 
 .day+#currentDay {
     background-color: #1DB954;
     color: #ecf0f1;
-    border: solid #ecf0f1;
 }
 
 .day+#currentDay:hover {
@@ -661,6 +660,50 @@ p {
     left: calc(50% - 175px);
     position: absolute;
     font-family: sans-serif;
+}
+
+#div-delete  {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: #ecf0f1;
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 300px;
+    top: 20px;
+    left: calc(50% - 175px);
+    position: absolute;
+    text-align: center;
+}
+
+#div-delete h4 {
+    color: #191414;
+}
+
+.div-delete-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: 10px;
+}
+
+.div-delete-buttons a, .div-delete-buttons button{
+    display: flex;
+    border: none;
+    justify-content: center;
+    font-size: 12px;
+    padding: 3px;
+    margin-top: 10px;
+    margin-inline: 15px;
+    width: 40px;
+    background-color: #1DB954;
+    color: #ecf0f1;
+    border-radius: 6px;
+}
+
+.div-delete-buttons a:hover, .div-delete-buttons button:hover{
+    color: #ecf0f1;
+    background-color: #191414;
 }
 
 #sundays {
