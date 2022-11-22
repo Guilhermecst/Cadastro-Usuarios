@@ -22,6 +22,14 @@ def agendamentos():
     return render_template('agendamentos.html', titulo='Agendamentos', agendamentos=agendamentos)
 
 
+@app.route('/meus-agendamentos')
+def meus_agendamentos():
+    if 'id' not in session or session['id'] == None:
+        return redirect(url_for('login', proxima=url_for('meus_agendamentos')))
+    meus_agendamentos = Agendamentos.query.order_by(Agendamentos.id_cliente)
+    return render_template('meus_agendamentos.html', titulo='Meus agendamentos', meus_agendamentos=meus_agendamentos)
+
+
 # ------------------------------------------------------------------
 # Create
 
@@ -83,7 +91,7 @@ def agendar_horario():
         nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente)
 
     flash('Agendamento efetuado com sucesso!')
-    return redirect(url_for('agendamentos'))
+    return redirect(url_for('meus_agendamentos'))
 
 
 # ------------------------------------------------------------------
@@ -133,7 +141,7 @@ def atualizar():
     db.session.commit()
 
     flash(f'Dados de {usuario.nome} editados com sucesso!')
-    return redirect(url_for('usuarios'))
+    return redirect(url_for('perfil'))
 
 
 @app.route('/atualizar-agendamento', methods=['POST', ])
@@ -152,7 +160,7 @@ def atualizar_agendamento():
     db.session.commit()
 
     flash(f'Agendamento de {agendamento.nome_cliente} editado com sucesso!')
-    return redirect(url_for('agendamentos'))
+    return redirect(url_for('meus_agendamentos'))
 
 
 # ------------------------------------------------------------------
@@ -178,13 +186,13 @@ def deletar_agendamento(id_agendamento):
     agendamento = Agendamentos.query.filter_by(
         id_agendamento=id_agendamento).first()
     if session['id'] != int(agendamento.id_cliente):
-        flash('Você não pode editar o agendamento de outro usuário')
+        flash('Você não pode deletar o agendamento de outro usuário')
         return redirect(url_for('agendamentos'))
     Agendamentos.query.filter_by(id_agendamento=id_agendamento).delete()
     db.session.commit()
     flash('Agendamento deletado com sucesso!')
 
-    return redirect(url_for('agendamentos'))
+    return redirect(url_for('meus_agendamentos'))
 
 
 # ------------------------------------------------------------------

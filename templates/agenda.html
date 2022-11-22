@@ -62,14 +62,15 @@
             <input type="text" name="telefone_cliente" value="{{ session['telefone'] }}" required>
             <input type="hidden" name="id_cliente" value="{{ session['id'] }}" required>
             <div class="div-buttons margin-top">
-                <button type="submit" id="saveButton">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
+                <button type="submit">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
                 <button type="button" id="cancelButton" class="margin-left">Cancelar<i
                         class="ri-close-circle-line margin-left"></i></button>
             </div>
         </form>
     </div>
-
-    <div id="modalBackDrop"></div>
+    <div id="sundays">
+        <h2 id="sunday-msg">Desculpe {{ session['nome'] }}, não atendemos aos domingos</h2>
+    </div>
 
 </div>
 
@@ -84,7 +85,7 @@
 
     // variavel do modal:
     const newEvent = document.getElementById('newEventModal')
-    const backDrop = document.getElementById('modalBackDrop')
+    const sunday = document.getElementById('sundays')
     const servico = document.getElementById('servico')
     // --------
     const calendar = document.getElementById('calendar') // div calendar:
@@ -94,13 +95,15 @@
 
     function openModal(date) {
         clicked = date
-        const eventDay = events.find((event) => event.date === clicked)
         const data = document.getElementById('data')
         data.setAttribute('value', clicked)
 
         newEvent.style.display = 'block'
 
-        backDrop.style.display = 'block'
+    }
+
+    function openSunday() {
+        sunday.style.display = 'block'
     }
 
     //função load() será chamada quando a pagina carregar:
@@ -117,8 +120,6 @@
         const day = date.getDate()
         const month = date.getMonth()
         const year = date.getFullYear()
-
-
 
         const daysMonth = new Date(year, month + 1, 0).getDate()
         const firstDayMonth = new Date(year, month, 1)
@@ -155,38 +156,51 @@
 
                 const eventDay = events.find(event => event.date === dayString)
 
+                // Dia atual
                 if (i - paddinDays === day && nav === 0) {
                     dayS.id = 'currentDay'
                 }
 
+                // Dias passados
                 if (i - paddinDays < day && nav === 0) {
                     dayS.classList.toggle('gray-day')
                 }
 
-                if (nav < 0) {
+                // Meses passados e 2º mês em diante
+                if (nav < 0 || nav > 1) {
                     dayS.classList.toggle('gray-day')
                 }
 
-                if (nav > 2) {
+                // Mês posterior menos dia atual
+                if (nav == 1 && i - paddinDays > day) {
                     dayS.classList.toggle('gray-day')
+                }
+
+                if (nav > 1) {
                     document.getElementsByTagName("h2")[0].innerText = 'Agenda fechada'
                 }
-
-                if (nav < 3) {
+                else {
                     document.getElementsByTagName("h2")[0].innerText = 'Agenda'
                 }
 
-                if (eventDay) {
-                    const eventDiv = document.createElement('div')
-                    eventDiv.classList.add('event')
-                    eventDiv.innerText = eventDay.title
-                    dayS.appendChild(eventDiv)
-
+                // Domingos
+                if (i == 1 || i == 8 || i == 15 || i == 22 || i == 29 || i == 36) {
+                    dayS.setAttribute('style', 'color: #ecf0f1; \
+                                                background-color: #919191; \
+                                                cursor: not-allowed;')
+                    dayS.addEventListener('click', () => openSunday())
+                    dayS.addEventListener('click', () => closeSunday())
                 }
 
-                if ((i - paddinDays >= day && nav === 0) || (nav > 0 && nav < 3)) {
-                    dayS.addEventListener('click', () => openModal(dayString))
+                // Dias disponíveis (com intervalo de um mês para agendamento)
+                if ((i - paddinDays >= day
+                    && (i != 1 && i != 8 && i != 15 && i != 22 && i != 29 && i != 36)
+                    && nav === 0)
+                    || (nav == 1 && i - paddinDays <= day && i != 1 && i != 8 && i != 15 && i != 22 && i != 29 && i != 36)) {
+                        dayS.setAttribute('title', 'Agendar')
+                        dayS.addEventListener('click', () => openModal(dayString))
                 }
+
 
             } else {
                 dayS.classList.add('padding')
@@ -200,12 +214,17 @@
     function closeModal() {
         servico.classList.remove('error')
         newEvent.style.display = 'none'
-        backDrop.style.display = 'none'
 
         servico.value = ''
         clicked = null
         load()
 
+    }
+
+    function closeSunday() {
+        setTimeout(() => {
+            sunday.style.display = 'none';
+        }, 3000);
     }
 
     // botões 
@@ -222,8 +241,6 @@
             load()
 
         })
-
-        document.getElementById('saveButton').addEventListener('click', () => saveEvent())
 
         document.getElementById('cancelButton').addEventListener('click', () => closeModal())
 

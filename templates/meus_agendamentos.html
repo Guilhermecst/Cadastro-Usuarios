@@ -6,43 +6,34 @@
 <table class="table table-striped table-responsive table-bordered">
     <thead class="thead-default">
         <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Nome de usuário</th>
+            <th>Serviço</th>
+            <th>Data</th>
+            <th>Hora</th>
             <th>Funções</th>
         </tr>
     </thead>
     <tbody>
-        {% for usuario in usuarios %}
+        {% for agendamento in meus_agendamentos %}
         <tr>
-            <td>{{ usuario.id }}</td>
-            <td>{{ usuario.nome }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.telefone }}</td>
-            <td>{{ usuario.nickname }}</td>
+            <td>{{ agendamento.servico }}</td>
+            <td>{{ agendamento.data }}</td>
+            <td>{{ agendamento.hora }}</td>
             <td>
                 <div class="delete-edit">
-                    <a href="{{ url_for('editar', id=usuario.id) }}"><i
-                            class="ri-ball-pen-line link-icons" title="Editar"></i></a>
-                    {% if session['id'] == usuario.id %}
-                    <button class="btn-delete link-icons" class="link-icons"><i class="ri-delete-bin-5-line link-icons"
-                            title="Deletar"></i></button>
+                    <a href="{{ url_for('editar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
+                            class="ri-ball-pen-line link-icons" title="Editar agendamento"></i></a>
+                    <button class="btn-delete link-icons"><i class="ri-close-circle-line link-icons"
+                            title="Cancelar agendamento"></i></button>
 
                     <div id="div-delete">
-                        <h4>Tem certeza que deseja deletar seus dados?</h4>
+                        <h4>Tem certeza que deseja cancelar o agendamento?</h4>
                         <div class="div-delete-buttons">
                             <a id="btn-sim"
-                                href="{{ url_for('deletar', id=usuario.id) }}">Sim</a>
+                                href="{{ url_for('deletar_agendamento', id_agendamento=agendamento.id_agendamento) }}">Sim</a>
                             <button id="btn-nao">Não</button>
                         </div>
 
                     </div>
-                    {% else %}
-                    <a href="{{ url_for('deletar', id=usuario.id) }}"><i
-                            class="ri-delete-bin-5-line link-icons" title="Deletar"></i></a>
-                    {% endif %}
                 </div>
             </td>
         </tr>
@@ -73,7 +64,10 @@
     </tbody>
 </table><br>
 
-<a href="{{ url_for('novo') }}" class="btn">Novo usuário<i class="ri-add-circle-line button-icon"></i></a>
+<a href="{{ url_for('agenda') }}" class="btn">Novo agendamento<i class="ri-calendar-2-line button-icon"></i></a>
 
 </div>
+</body>
+
+</html>
 {% endblock %}
