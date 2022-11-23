@@ -57,10 +57,10 @@
                 <option value="19:00">19:00</option>
                 <option value="20:00">20:00</option>
             </select>
-            <input type="text" name="nome_cliente" value="{{ session['nome'] }}" required>
-            <input type="text" name="email_cliente" value="{{ session['email'] }}" required>
-            <input type="text" name="telefone_cliente" value="{{ session['telefone'] }}" required>
-            <input type="hidden" name="id_cliente" value="{{ session['id'] }}" required>
+            <input type="text" name="nome_cliente" value="{{ current_user.nome }}" required>
+            <input type="text" name="email_cliente" value="{{ current_user.email }}" required>
+            <input type="text" name="telefone_cliente" value="{{ current_user.telefone }}" required>
+            <input type="hidden" name="id_cliente" value="{{ current_user.id }}" required>
             <div class="div-buttons margin-top">
                 <button type="submit">Salvar<i class="ri-checkbox-circle-line margin-left"></i></button>
                 <button type="button" id="cancelButton" class="margin-left">Cancelar<i
@@ -69,7 +69,7 @@
         </form>
     </div>
     <div id="sundays">
-        <h2 id="sunday-msg">Desculpe {{ session['nome'] }}, não atendemos aos domingos</h2>
+        <h2 id="sunday-msg">Desculpe {{ current_user.nome }}, não atendemos aos domingos</h2>
     </div>
 
 </div>

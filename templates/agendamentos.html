@@ -30,7 +30,7 @@
                 <div class="delete-edit">
                     <a href="{{ url_for('editar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
                             class="ri-ball-pen-line link-icons" title="Editar agendamento"></i></a>
-                    {% if session['id'] == agendamento.id_cliente %}
+                    {% if current_user.id == agendamento.id_cliente %}
                     <button class="btn-delete link-icons"><i class="ri-close-circle-line link-icons"
                             title="Cancelar agendamento"></i></button>
 

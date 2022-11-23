@@ -6,18 +6,18 @@
 
 <div class="perfil">
     <i class="ri-user-line icon"></i>
-    <h2>{{ session['nome'] }}</h2>
+    <h2>{{ current_user.nome }}</h2>
 </div>
 
 <div class="dados-pessoais margin-top">
-    <span><i class="ri-mail-line"></i><span class="margin-left">{{ session['email'] }}</span></span>
-    <span><i class="ri-phone-line"></i><span class="margin-left">{{ session['telefone'] }}</span></span>
-    <span><i class="ri-user-line"></i><span class="margin-left">{{ session['nickname'] }}</span></span>
+    <span><i class="ri-mail-line"></i><span class="margin-left">{{ current_user.email }}</span></span>
+    <span><i class="ri-phone-line"></i><span class="margin-left">{{ current_user.telefone }}</span></span>
+    <span><i class="ri-user-line"></i><span class="margin-left">{{ current_user.nickname }}</span></span>
 </div>
 
 
 <div class="two-buttons">
-    <a href="{{ url_for('editar', id=session['id']) }}" class="btn btn-perfil">Editar dados<i
+    <a href="{{ url_for('editar', id=current_user.id) }}" class="btn btn-perfil">Editar dados<i
             class="ri-ball-pen-line button-icon"></i></a>
     <a href="{{ url_for('meus_agendamentos') }}" class="btn btn-perfil margin-left">Meus agendamentos<i
             class="ri-calendar-2-line button-icon"></i></a>

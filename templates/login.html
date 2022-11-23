@@ -3,7 +3,7 @@
 <div class="page-header">
     <h2>{{ titulo }}</h2>
 </div>
-<form method="POST" class="form" action="{{ url_for('autenticar') }}">
+<form method="POST" class="form">
     
     <input type="hidden" name="proxima" value="{{ proxima or url_for('usuarios') }}">
 
@@ -30,7 +30,7 @@
         </script>
     </label>
 
-    <label class="label-link"><a href="{{ url_for('novo') }}">Criar login</a><a href="">Esqueceu a
+    <label class="label-link"><a href="{{ url_for('novo') }}">Criar login</a><a href="#">Esqueceu a
             senha?</a></label>
 
     <button type="submit" class="btn">Entrar<i class="ri-login-box-line button-icon"></i></button>

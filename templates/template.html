@@ -154,7 +154,7 @@
     <div class="container">
         <div class="column">
 
-            {% if session['id'] == None %}
+            {% if not current_user.is_authenticated %}
             <div class="sidebar"><br>
                 <div class="logo-details">
                     <h2 class="menu-msg margin-left">Bem vindo!</h2>
@@ -196,12 +196,12 @@
 
             {% endif %}
 
-            {% if session['id'] != None %}
+            {% if current_user.is_authenticated %}
             <div class="sidebar"><br>
                 <div class="logo-details">
                     <a class="perfil-menu" href="{{ url_for('perfil') }}">
                         <i class='ri-user-line icon'></i>
-                        <div class="menu-msg">{{ session['nome'] }}</div>
+                        <div class="menu-msg">{{ current_user.nome }}</div>
                     </a>
                     <i class='ri-menu-fill' id="btn"></i>
                 </div>
