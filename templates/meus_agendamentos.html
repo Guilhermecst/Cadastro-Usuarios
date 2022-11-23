@@ -6,31 +6,22 @@
 <table class="table table-striped table-responsive table-bordered">
     <thead class="thead-default">
         <tr>
-            <th>Id</th>
-            <th>Nome</th>
             <th>Serviço</th>
             <th>Data</th>
             <th>Hora</th>
-            <th>Email</th>
-            <th>Telefone</th>
             <th>Funções</th>
         </tr>
     </thead>
     <tbody>
-        {% for agendamento in agendamentos %}
+        {% for agendamento in meus_agendamentos %}
         <tr>
-            <td>{{ agendamento.id_agendamento }}</td>
-            <td>{{ agendamento.nome_cliente }}</td>
             <td>{{ agendamento.servico }}</td>
             <td>{{ agendamento.data }}</td>
             <td>{{ agendamento.hora }}</td>
-            <td>{{ agendamento.email_cliente }}</td>
-            <td>{{ agendamento.telefone_cliente }}</td>
             <td>
                 <div class="delete-edit">
                     <a href="{{ url_for('editar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
                             class="ri-ball-pen-line link-icons" title="Editar agendamento"></i></a>
-                    {% if current_user.id == agendamento.id_cliente %}
                     <button class="btn-delete link-icons"><i class="ri-close-circle-line link-icons"
                             title="Cancelar agendamento"></i></button>
 
@@ -43,10 +34,6 @@
                         </div>
 
                     </div>
-                    {% else %}
-                    <a href="{{ url_for('deletar_agendamento', id_agendamento=agendamento.id_agendamento) }}"><i
-                            class="ri-close-circle-line link-icons" title="Cancelar agendamento"></i></a>
-                    {% endif %}
                 </div>
             </td>
         </tr>

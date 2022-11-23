@@ -1,0 +1,55 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<form class="form" action="{{ url_for('redefinir_senha') }}" method="post">
+
+    <input type="hidden" name="nickname" value="{{ current_user.nickname }}" required>
+
+    <label class="label-input" for="" style="position: relative;">
+        <input type="password" name="senha_atual" id="senha_atual" placeholder="Senha Atual" />
+        <i class="ri ri-eye-off-fill ri-eye-fill" id="togglePassword1"></i>
+
+        <script>
+
+            const togglePassword1 = document.querySelector('#togglePassword1');
+            const password1 = document.querySelector('#senha_atual');
+            togglePassword1.addEventListener('click', function (e) {
+
+                const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+                password1.setAttribute('type', type);
+
+                this.classList.toggle('ri-eye-off-fill');
+            });
+
+        </script>
+    </label>
+
+
+    <label class="label-input" for="" style="position: relative;">
+        <input type="password" name="senha" id="senha" placeholder="Nova senha" />
+        <i class="ri ri-eye-off-fill ri-eye-fill" id="togglePassword2"></i>
+
+        <script>
+
+            const togglePassword2 = document.querySelector('#togglePassword2');
+            const password2 = document.querySelector('#senha');
+            togglePassword2.addEventListener('click', function (e) {
+
+                const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+                password2.setAttribute('type', type);
+
+                this.classList.toggle('ri-eye-off-fill');
+            });
+
+        </script>
+    </label>
+
+    <button type="submit" class="btn">Confirmar<i class="ri-save-3-fill button-icon"></i></button>
+
+</form>
+</body>
+
+</html>
+{% endblock %}

@@ -6,20 +6,24 @@
 
 <div class="perfil">
     <i class="ri-user-line icon"></i>
-    <h2>{{ session['nome'] }}</h2>
-</div><br>
+    <h2>{{ current_user.nome }}</h2>
+</div>
 
-<div class="dados-pessoais">
-    <p><i class="ri-mail-line"></i><span class="margin-left">Email: {{ session['email'] }}</span></p>
-    <p><i class="ri-phone-line"></i><span class="margin-left">Telefone: {{ session['telefone'] }}</span></p>
-</div><br>
+<div class="dados-pessoais margin-top">
+    <span><i class="ri-mail-line"></i><span class="margin-left">{{ current_user.email }}</span></span>
+    <span><i class="ri-phone-line"></i><span class="margin-left">{{ current_user.telefone }}</span></span>
+    <span><i class="ri-user-line"></i><span class="margin-left">{{ current_user.nickname }}</span></span>
+</div>
 
 
 <div class="two-buttons">
-    <a href="{{ url_for('editar', id=session['id']) }}" class="btn btn-perfil">Editar dados<i
+    <a href="{{ url_for('editar', id=current_user.id) }}" class="btn btn-perfil">Editar dados<i
             class="ri-ball-pen-line button-icon"></i></a>
-    <a href="{{ url_for('usuarios') }}" class="btn margin-left btn-perfil">Voltar<i class="ri-arrow-left-line button-icon"></i></a>
+    <a href="{{ url_for('meus_agendamentos') }}" class="btn btn-perfil margin-left">Meus agendamentos<i
+            class="ri-calendar-2-line button-icon"></i></a>
 </div>
+<a href="{{ url_for('usuarios') }}" class="btn margin-left btn-perfil">Voltar<i
+        class="ri-arrow-left-line button-icon"></i></a>
 
 {% endblock %}
 

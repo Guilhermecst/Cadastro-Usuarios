@@ -42,7 +42,7 @@ TABLES['usuarios'] = ('''
       `numero` VARCHAR(10) NOT NULL,
       `complemento` VARCHAR(15),
       `bairro` VARCHAR(30) NOT NULL,
-      `senha` VARCHAR(50) NOT NULL,
+      `senha` VARCHAR(102) NOT NULL,
       PRIMARY KEY (`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
@@ -74,7 +74,7 @@ for tabela_nome in TABLES:
             print('OK')
 
 
-''' inserindo usuarios '''
+''' inserindo usuarios
 usuario_sql = 'INSERT INTO usuarios (nickname, nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 usuarios = [
       ("guilherme", "Guilherme", "Costa Silva", "24/11/2001", "Masculino", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10", "06160-265", "SP", "Osasco", "Rua Anastacia", "48", None, "Bandeiras", "teste123"),
@@ -84,7 +84,7 @@ cursor.executemany(usuario_sql, usuarios)
 cursor.execute('select * from usuarios')
 print(' -------------  Usuários:  -------------')
 for user in cursor.fetchall():
-    print(user[1])
+    print(user[1])'''
 
 # commitando se não nada tem efeito
 conn.commit()

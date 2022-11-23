@@ -110,6 +110,7 @@ body {
     left: calc(100% + 15px);
     z-index: 3;
     background: #ecf0f1;
+    color: #191414;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     padding: 6px 12px;
     border-radius: 4px;
@@ -257,6 +258,18 @@ h4 {
 .buttons {
     display: flex;
     justify-content: space-between;
+    transition: background-color .5s;
+}
+
+.meus-agendamentos {
+    font-size: 16px;
+    color: #1DBB54;
+    border-radius: 6px;
+    transition: background-color .5s;
+}
+
+.meus-agendamentos:hover {
+    color: #ecf0f1;
 }
 
 .column {
@@ -324,6 +337,10 @@ input:focus {
     outline: 0;
 }
 
+#senha_atual {
+    width: 280px;
+}
+
 .ri {
     position: absolute;
     right: 10px;
@@ -389,6 +406,9 @@ a {
     text-decoration: none;
     margin-right: 5px;
     color: #1DB954;
+    cursor: pointer;
+    align-items: center;
+    transition: background-color .5s;
 }
 
 a:hover {
@@ -456,6 +476,10 @@ p {
     align-items: center;
 }
 
+span {
+    color: #ecf0f1;
+}
+
 /* Calendario */
 
 .points {
@@ -481,7 +505,7 @@ p {
     outline: none;
     padding: 5px;
     border-radius: 5px;
-    color: #ecf0f1;
+    transition: background-color .5s;
 }
 
 .div-buttons {
@@ -527,6 +551,14 @@ p {
     width: 70px;
     height: 70px;
     font-size: 35px;
+    transition: background-color .5s;
+    cursor: pointer;
+}
+
+.dados-pessoais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .two-buttons {
@@ -615,6 +647,7 @@ p {
     flex-direction: column;
     border-radius: 15%;
     align-items: flex-end;
+    transition: background-color .5s;
 }
 
 .day:hover {
