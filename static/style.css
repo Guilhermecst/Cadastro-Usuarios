@@ -335,6 +335,7 @@ input:hover {
 
 textarea {
     border-radius: 6px;
+    background-color: #ecf0f1;
     padding: 10px;
     font-family: 'Poppins', sans-serif;
     width: 420px;

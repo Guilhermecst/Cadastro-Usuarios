@@ -7,10 +7,11 @@
     <input type="hidden" name="id_agendamento" value="{{ agendamento.id_agendamento }}" required>
     <input type="hidden" name="id_cliente" value="{{ current_user.id }}" required>
     <label for="">
-        <select name="servico" value="" required>
-            <option selected disabled hidden>Selecione um serviço</option>
-            <option value="Corte">Corte</option>
-            <option value="Barba">Barba</option>
+        <select name="servico" required>
+            <option value="" selected disabled hidden>Selecione um serviço</option>
+            {% for servico in servicos %}
+            <option value="{{ servico.nome_servico }}">{{ servico.nome_servico }}</option>
+            {% endfor %}
         </select>
         <input type="text" class="margin-left" id="data" value="{{ agendamento.data }}" name="data" placeholder="Data"
             required>

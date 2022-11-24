@@ -3,7 +3,7 @@
 <div class="page-header">
     <h2>{{ titulo }}</h2>
 </div>
-<table class="table table-striped table-responsive table-bordered">
+<table>
     <thead class="thead-default">
         <tr>
             <th>Id</th>
@@ -26,7 +26,7 @@
                 <div class="delete-edit">
                     <a href="{{ url_for('editar', id=current_user.id) }}"><i
                             class="ri-ball-pen-line link-icons" title="Editar"></i></a>
-                    {% if not current_user.id == usuario.id %}
+                    {% if current_user.id == usuario.id %}
                     <button class="btn-delete link-icons" class="link-icons"><i class="ri-delete-bin-5-line link-icons"
                             title="Deletar"></i></button>
 
@@ -34,13 +34,13 @@
                         <h4>Tem certeza que deseja deletar seus dados?</h4>
                         <div class="div-delete-buttons">
                             <a id="btn-sim"
-                                href="{{ url_for('deletar', id=current_user.id) }}">Sim</a>
+                                href="{{ url_for('deletar', id=usuario.id) }}">Sim</a>
                             <button id="btn-nao">Não</button>
                         </div>
 
                     </div>
                     {% else %}
-                    <a href="{{ url_for('deletar', id=current_user.id) }}"><i
+                    <a href="{{ url_for('deletar', id=usuario.id) }}"><i
                             class="ri-delete-bin-5-line link-icons" title="Deletar"></i></a>
                     {% endif %}
                 </div>

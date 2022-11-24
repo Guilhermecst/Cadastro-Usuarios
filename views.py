@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
 from app import app, db, mail
-from models import Usuarios, Agendamentos, Contato
+from models import Usuarios, Servicos, Agendamentos, Contato
 
 
 # ------------------------------------------------------------------
@@ -23,6 +23,13 @@ def agendamentos():
         return redirect(url_for('login', proxima=url_for('agendamentos')))
     agendamentos = Agendamentos.query.order_by(Agendamentos.id_agendamento)
     return render_template('agendamentos.html', titulo='Agendamentos', agendamentos=agendamentos)
+
+@app.route('/servicos')
+def servicos():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login', proxima=url_for('servicos')))
+    servicos = Servicos.query.order_by(Servicos.id_servico)
+    return render_template('servicos.html', titulo='Serviços', servicos=servicos)
 
 
 @app.route('/meus-agendamentos')
@@ -45,7 +52,15 @@ def novo():
 def agenda():
     if not current_user.is_authenticated:
         return redirect(url_for('login', proxima=url_for('agenda')))
-    return render_template('agenda.html')
+    servicos = Servicos.query.order_by(Servicos.id_servico)
+    return render_template('agenda.html', servicos=servicos)
+
+
+@app.route('/novo-servico')
+def novo_servico():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login', proxima=url_for('novo_servico')))
+    return render_template('novo_servico.html', titulo='Adicionar serviço')
 
 
 @app.route('/criar', methods=['POST'])
@@ -90,12 +105,26 @@ def agendar_horario():
     telefone_cliente = request.form['telefone_cliente']
     id_cliente = request.form['id_cliente']
 
+    nome_servico = Servicos.query.filter_by(
+        nome_servico=request.form['servico']).first()
+    
+    id_servico = nome_servico.id_servico
+
     Agendamentos.adicionar_agendamento(
-        nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente)
+        nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente, id_servico)
 
     flash('Agendamento efetuado com sucesso!')
     return redirect(url_for('meus_agendamentos'))
 
+
+@app.route('/criar-servico', methods=['POST'])
+def criar_servico():
+    nome_servico = request.form['nome_servico']
+
+    Servicos.adicionar_servico(nome_servico)
+
+    flash('Serviço adicionado com sucesso!')
+    return redirect(url_for('novo_servico'))
 
 # ------------------------------------------------------------------
 # Update
@@ -117,10 +146,11 @@ def editar_agendamento(id_agendamento):
         return redirect(url_for('login', proxima=url_for('editar_agendamento', id_agendamento=id_agendamento)))
     agendamento = Agendamentos.query.filter_by(
         id_agendamento=id_agendamento).first()
+    servicos = Servicos.query.order_by(Servicos.id_servico)
     if current_user.id != int(agendamento.id_cliente):
         flash('Você não pode editar o agendamento de outro usuário')
         return redirect(url_for('agendamentos'))
-    return render_template('editar_agendamento.html', titulo=f'Editar agendamento de {agendamento.nome_cliente}', agendamento=agendamento)
+    return render_template('editar_agendamento.html', titulo=f'Editar agendamento de {agendamento.nome_cliente}', agendamento=agendamento, servicos=servicos)
 
 
 @app.route('/atualizar', methods=['POST', ])
@@ -155,6 +185,14 @@ def atualizar_agendamento():
     agendamento.email_cliente = request.form['email_cliente']
     agendamento.telefone_cliente = request.form['telefone_cliente']
     agendamento.id_cliente = request.form['id_cliente']
+
+    nome_servico = Servicos.query.filter_by(
+        nome_servico=request.form['servico']).first()
+    
+    id_servico = nome_servico.id_servico
+
+    agendamento.id_servico = id_servico
+
 
     db.session.add(agendamento)
     db.session.commit()
@@ -204,6 +242,7 @@ def deletar(id):
     if current_user.id != int(id):
         flash('Você não pode deletar os dados de outro usuário')
         return redirect(url_for('usuarios'))
+    Agendamentos.query.filter_by(id_cliente=id).delete()
     Usuarios.query.filter_by(id=id).delete()
     db.session.commit()
     flash('Usuário deletado com sucesso!')
@@ -271,6 +310,8 @@ def perfil():
 
 @app.route('/contato', methods=['GET', 'POST'])
 def contato():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login', proxima=url_for('contato')))
     if request.method == 'POST':
         nome = request.form['nome']
         email = request.form['email']
@@ -304,4 +345,6 @@ Telefone: {form_contato.telefone}
 
 @app.route('/configuracoes')
 def configuracoes():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login', proxima=url_for('configuracoes')))
     return render_template('configuracoes.html', titulo='Configurações')

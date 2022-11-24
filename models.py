@@ -42,6 +42,21 @@ class Usuarios(db.Model, UserMixin):
         return check_password_hash(self.senha, pwd)
 
 
+class Servicos(db.Model, UserMixin):
+    __tablename__ = 'servicos'
+    id_servico = db.Column(
+        db.Integer, primary_key=True, autoincrement=True)
+    nome_servico = db.Column(db.String(15), nullable=False)
+
+    def adicionar_servico(nome_servico):
+        servico = Servicos(nome_servico=nome_servico)
+        db.session.add(servico)
+        db.session.commit()
+
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
+
 class Agendamentos(db.Model, UserMixin):
     __tablename__ = 'agendamentos'
     id_agendamento = db.Column(
@@ -54,10 +69,12 @@ class Agendamentos(db.Model, UserMixin):
     telefone_cliente = db.Column(db.String(15), nullable=False)
     id_cliente = db.Column(db.Integer, db.ForeignKey('usuarios.id'),
                            nullable=False)
+    id_servico = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'),
+                           nullable=False)
 
-    def adicionar_agendamento(nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente):
+    def adicionar_agendamento(nome_cliente, servico, data, hora, email_cliente, telefone_cliente, id_cliente, id_servico):
         agendamento = Agendamentos(nome_cliente=nome_cliente, servico=servico, data=data,
-                                   hora=hora, email_cliente=email_cliente, telefone_cliente=telefone_cliente, id_cliente=id_cliente)
+                                   hora=hora, email_cliente=email_cliente, telefone_cliente=telefone_cliente, id_cliente=id_cliente, id_servico=id_servico)
         db.session.add(agendamento)
         db.session.commit()
 
@@ -66,7 +83,7 @@ class Agendamentos(db.Model, UserMixin):
 
 
 class Contato:
-    def __init__(self,nome, email, telefone, assunto, mensagem):
+    def __init__(self, nome, email, telefone, assunto, mensagem):
         self.nome = nome
         self.email = email
         self.telefone = telefone

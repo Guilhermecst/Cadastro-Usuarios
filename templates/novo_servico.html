@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+
+<form class="form" action="{{ url_for('criar_servico') }}" method="post" enctype="multipart/form-data">
+
+    <label class="label-input" for="">
+        <input type="text" maxlength="15" name="nome_servico" placeholder="Serviço" required>
+    </label>
+
+
+    <button type="submit" class="btn">Adicionar<i class="ri-add-line button-icon"></i></button>
+
+</form>
+</div>
+</body>
+
+</html>
+{% endblock %}

@@ -39,8 +39,9 @@
             <input type="hidden" id="servico">
             <select name="servico" class="margin-top" required>
                 <option value="" selected disabled hidden>Selecione um serviço</option>
-                <option value="Corte">Corte</option>
-                <option value="Barba">Barba</option>
+                {% for servico in servicos %}
+                <option value="{{ servico.nome_servico }}">{{ servico.nome_servico }}</option>
+                {% endfor %}
             </select>
             <input type="text" id="data" value="data" name="data" placeholder="Data" required>
             <select name="hora" class="margin-top" required>
