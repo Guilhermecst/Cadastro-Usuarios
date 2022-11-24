@@ -282,17 +282,17 @@ def contato():
         msg = Message(
             subject=f'{form_contato.assunto}',
             sender=app.config.get("MAIL_USERNAME"),
-            recipients=app.config.get("MAIL_USERNAME"),
+            recipients=[app.config.get("MAIL_USERNAME")],
             body=f'''
             
-            {form_contato.nome} te enviou a seguinte mensagem:
+{form_contato.nome} te enviou a seguinte mensagem:
 
-            {form_contato.mensagem}
+{form_contato.mensagem}
 
-            Dados para contato:
-            Nome: {form_contato.nome}
-            E-mail: {form_contato.email}
-            telefone: {form_contato.telefone}
+Dados para contato:
+Nome: {form_contato.nome}
+E-mail: {form_contato.email}
+Telefone: {form_contato.telefone}
 
 
             '''
