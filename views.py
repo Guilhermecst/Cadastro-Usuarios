@@ -1,8 +1,9 @@
 from flask import render_template, request, redirect, flash, url_for
 from flask_login import login_user, logout_user, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
-from app import app, db
-from models import Usuarios, Agendamentos
+from flask_mail import Message
+from werkzeug.security import generate_password_hash
+from app import app, db, mail
+from models import Usuarios, Agendamentos, Contato
 
 
 # ------------------------------------------------------------------
@@ -172,6 +173,7 @@ def alterar_senha(nickname):
         flash('Você não pode redefinir a senha de outro usuário')
     return render_template('alterar_senha.html', titulo=f'Alterar senha', nickname=nickname)
 
+
 @app.route('/redefinir-senha', methods=['POST'])
 def redefinir_senha():
     usuario = Usuarios.query.filter_by(
@@ -238,9 +240,9 @@ def login():
         if not usuario or not usuario.verificar_senha(senha):
             flash('Usuário ou senha inválidos')
             return redirect(url_for('login'))
-        
+
         login_user(usuario)
-        
+
         return redirect(url_for('agenda'))
     return render_template('login.html', titulo='Login')
 
@@ -265,3 +267,41 @@ def perfil():
         return redirect(url_for('login', proxima=url_for('perfil')))
     usuarios = Usuarios.query.order_by(Usuarios.id)
     return render_template('perfil.html', usuarios=usuarios)
+
+
+@app.route('/contato', methods=['GET', 'POST'])
+def contato():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        telefone = request.form['telefone']
+        assunto = request.form['assunto']
+        mensagem = request.form['mensagem']
+        form_contato = Contato(
+            nome=nome, email=email, telefone=telefone, assunto=assunto, mensagem=mensagem)
+        msg = Message(
+            subject=f'{form_contato.assunto}',
+            sender=app.config.get("MAIL_USERNAME"),
+            recipients=app.config.get("MAIL_USERNAME"),
+            body=f'''
+            
+            {form_contato.nome} te enviou a seguinte mensagem:
+
+            {form_contato.mensagem}
+
+            Dados para contato:
+            Nome: {form_contato.nome}
+            E-mail: {form_contato.email}
+            telefone: {form_contato.telefone}
+
+
+            '''
+        )
+        mail.send(msg)
+        flash('E-mail enviado com sucesso!')
+        return redirect(url_for('contato'))
+    return render_template('contato.html', titulo='Contato')
+
+@app.route('/configuracoes')
+def configuracoes():
+    return render_template('configuracoes.html', titulo='Configurações')

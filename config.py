@@ -1,4 +1,4 @@
-SECRET_KEY = 'flask'
+SECRET_KEY = 'secretKey'
 
 SQLALCHEMY_DATABASE_URI = \
     '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(

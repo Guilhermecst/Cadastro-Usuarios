@@ -63,3 +63,12 @@ class Agendamentos(db.Model, UserMixin):
 
     def __repr__(self):
         return '<Name %r>' % self.name
+
+
+class Contato:
+    def __init__(self,nome, email, telefone, assunto, mensagem):
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
+        self.assunto = assunto
+        self.mensagem = mensagem

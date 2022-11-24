@@ -1,0 +1,48 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<a href="{{ url_for('editar', id=current_user.id) }}" class="btn btn-config">Editar dados<i
+        class="ri-ball-pen-line button-icon"></i></a>
+</body>
+
+<a href="{{ url_for('redefinir_senha', nickname=current_user.nickname) }}" class="btn btn-config">Redefinir senha<i
+        class="ri-lock-password-line button-icon"></i></a>
+
+<button class="btn-delete btn btn-config">Deletar cadastro<i class="ri-delete-bin-5-line link-icons"></i></button>
+
+<div id="div-delete">
+    <h4>Tem certeza que deseja deletar seus dados?</h4>
+    <div class="div-delete-buttons">
+        <a id="btn-sim" href="{{ url_for('deletar', id=current_user.id) }}">Sim</a>
+        <button id="btn-nao">Não</button>
+    </div>
+</div>
+
+<script>
+    const divDelete = document.getElementById('div-delete')
+    const btnNao = document.getElementById('btn-nao')
+
+    function openDelete() {
+        divDelete.style.display = 'block'
+    }
+
+    function closeDelete() {
+        divDelete.style.display = 'none'
+    }
+
+    const elements = document.getElementsByClassName('btn-delete');
+
+    Array.from(elements).forEach(function (element) {
+        element.addEventListener('click', openDelete);
+    });
+
+    document.getElementById('btn-nao').addEventListener('click', () => closeDelete())
+
+</script>
+
+</body>
+
+</html>
+{% endblock %}

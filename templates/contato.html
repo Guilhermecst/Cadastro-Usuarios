@@ -1,0 +1,51 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+
+<form method="POST" class="form" action="{{ url_for('contato') }}">
+
+    <div class="div-input">
+        <label class="label-input" for="">
+            <input type="text" name="nome" size="20" maxlength="100" placeholder="Nome" value="{{ current_user.nome }}"
+                required>
+        </label>
+    </div>
+
+    <div class="div-input">
+        <label class="label-input" for="">
+            <input type="email" class="email-lance" name="email" size="20" maxlength="100" placeholder="E-mail"
+                value="{{ current_user.email }}" required>
+
+            <input type="text" class="margin-left" name="telefone" placeholder="Telefone" maxlength="15"
+                onkeydown="javascript: fMasc(this, mTel);" value="{{ current_user.telefone }}" required>
+        </label>
+    </div>
+
+    <div class="div-input">
+        <label class="label-input" for="">
+            <input type="text" name="assunto" placeholder="Assunto" maxlength="30" required>
+        </label>
+    </div>
+
+    <div class="div-input">
+        <label for="mensagem">
+            <textarea spellcheck="true" name="mensagem" id="mensagem" required cols="0" rows="7" class="contact_input"
+                placeholder="Digite sua mensagem..."></textarea>
+        </label>
+    </div>
+
+    <button type="submit" class="btn">Enviar<i class="ri-send-plane-2-line button-icon"></i></i></button>
+
+</form>
+
+</div>
+
+</div>
+
+
+</body>
+
+</html>
+{% endblock %}
