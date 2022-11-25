@@ -36,13 +36,15 @@
     <input type="text" id="complemento" name="complemento" placeholder="Complemento"
       value="{{ current_user.complemento }}"></label>
   <label class="label-input" for="">
-    <input type="text" id="bairro" name="bairro" size="40" placeholder="Bairro" value="{{ current_user.bairro }}" /></label>
+    <input type="text" id="bairro" name="bairro" size="40" placeholder="Bairro"
+      value="{{ current_user.bairro }}" /></label>
 
 
   <div class="two-buttons">
     <button type="submit" class="btn">Salvar<i class="ri-save-3-fill button-icon"></i></button>
-    <a href="{{ url_for('clientes') }}" class="btn margin-left">Cancelar<i class="ri-close-circle-line button-icon"></i></a><br>
-</div>
+    <a href="{{ url_for('clientes') }}" class="btn margin-left">Cancelar<i
+        class="ri-close-circle-line button-icon"></i></a><br>
+  </div>
 
 </form>
 </div>

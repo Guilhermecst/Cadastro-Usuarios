@@ -7,6 +7,7 @@ from flask_login import UserMixin
 def get_user(id):
     return Clientes.query.filter_by(id=id).first()
 
+
 class Clientes(db.Model, UserMixin):
     __tablename__ = 'clientes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -41,11 +42,11 @@ class Clientes(db.Model, UserMixin):
         return check_password_hash(self.senha, pwd)
 
 
-class Servicos(db.Model, UserMixin):
+class Servicos(db.Model):
     __tablename__ = 'servicos'
     id_servico = db.Column(
         db.Integer, primary_key=True, autoincrement=True)
-    nome_servico = db.Column(db.String(15), nullable=False)
+    nome_servico = db.Column(db.String(15), nullable=False, unique=True)
     valor = db.Column(db.String(6), nullable=False)
 
     def adicionar_servico(nome_servico, valor):
@@ -57,7 +58,7 @@ class Servicos(db.Model, UserMixin):
         return '<Name %r>' % self.name
 
 
-class Agendamentos(db.Model, UserMixin):
+class Agendamentos(db.Model):
     __tablename__ = 'agendamentos'
     id_agendamento = db.Column(
         db.Integer, primary_key=True, autoincrement=True)

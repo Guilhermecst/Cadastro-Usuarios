@@ -3,16 +3,16 @@ from mysql.connector import errorcode
 
 print("Conectando...")
 try:
-      conn = mysql.connector.connect(
-            host='127.0.0.1',
-            user='root',
-            password='SuperAdmin&123'
-      )
+    conn = mysql.connector.connect(
+        host='127.0.0.1',
+        user='root',
+        password='SuperAdmin&123'
+    )
 except mysql.connector.Error as err:
-      if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print('Existe algo errado no nome de usuário ou senha')
-      else:
-            print(err)
+    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+        print('Existe algo errado no nome de usuário ou senha')
+    else:
+        print(err)
 
 cursor = conn.cursor()
 
@@ -27,7 +27,6 @@ TABLES = {}
 TABLES['clientes'] = ('''
       CREATE TABLE `clientes` (
       `id` INT(5) NOT NULL AUTO_INCREMENT,
-      `nickname` VARCHAR(20),
       `nome` VARCHAR(20) NOT NULL,
       `sobrenome` VARCHAR(50) NOT NULL,
       `data_nasc` VARCHAR(10) NOT NULL,
@@ -42,6 +41,7 @@ TABLES['clientes'] = ('''
       `numero` VARCHAR(10) NOT NULL,
       `complemento` VARCHAR(15),
       `bairro` VARCHAR(30) NOT NULL,
+      `nickname` VARCHAR(20) NOT NULL,
       `senha` VARCHAR(102) NOT NULL,
       PRIMARY KEY (`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
@@ -71,30 +71,46 @@ TABLES['agendamentos'] = ('''
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
 for tabela_nome in TABLES:
-      tabela_sql = TABLES[tabela_nome]
-      try:
-            print('Criando tabela {}:'.format(tabela_nome), end=' ')
-            cursor.execute(tabela_sql)
-      except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-                  print('Já existe')
-            else:
-                  print(err.msg)
-      else:
-            print('OK')
+    tabela_sql = TABLES[tabela_nome]
+    try:
+        print('Criando tabela {}:'.format(tabela_nome), end=' ')
+        cursor.execute(tabela_sql)
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+            print('Já existe')
+        else:
+            print(err.msg)
+    else:
+        print('OK')
 
 
-''' inserindo clientes
-cliente_sql = 'INSERT INTO clientes (nickname, nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+# inserindo clientes
+cliente_sql = 'INSERT INTO clientes (nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, nickname, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 clientes = [
-      ("guilherme", "Guilherme", "Costa Silva", "24/11/2001", "Masculino", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10", "06160-265", "SP", "Osasco", "Rua Anastacia", "48", None, "Bandeiras", "teste123"),
+    ("Guilherme", "Costa Silva", "24/11/2001", "Masculino", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10",
+     "06160-265", "SP", "Osasco", "Rua Anastácia", "48", None, "Bandeiras", "guilherme",  "teste123"),
 ]
 cursor.executemany(cliente_sql, clientes)
 
 cursor.execute('select * from clientes')
 print(' -------------  Usuários:  -------------')
-for user in cursor.fetchall():
-    print(user[1])'''
+for usuario in cursor.fetchall():
+    print(usuario[15])
+
+# inserindo servicos
+servico_sql = 'INSERT INTO servicos (nome_servico, valor) VALUES (%s, %s)'
+servicos = [
+    ("Corte", "69,90"),
+    ("Barba", "29,90"),
+    ("Manicure", "49,90"),
+    ("Pedicure", "59,90")
+]
+cursor.executemany(servico_sql, servicos)
+
+cursor.execute('select * from servicos')
+print(' -------------  Serviços:  -------------')
+for servicos in cursor.fetchall():
+    print(servicos[1])
 
 # commitando se não nada tem efeito
 conn.commit()

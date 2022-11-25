@@ -4,24 +4,24 @@
     <h2>{{ titulo }}</h2>
 </div>
 <div class="servicos">
-<table>
-    <thead class="thead-default">
-        <tr>
-            <th class="th-servico">Serviço</th>
-            <th class="th-servico"></th>
-            <th class="th-servico">Valor (R$)</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for servico in servicos %}
-        <tr>
-            <td class="td-servico">{{ servico.nome_servico }}</td>
-            <td class="td-servico">__________</td>
-            <td class="td-servico">{{ servico.valor }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table>
+        <thead class="thead-default">
+            <tr>
+                <th class="th-servico">Serviço</th>
+                <th class="th-servico"></th>
+                <th class="th-servico">Valor (R$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for servico in servicos %}
+            <tr>
+                <td class="td-servico">{{ servico.nome_servico }}</td>
+                <td class="td-servico">__________</td>
+                <td class="td-servico">{{ servico.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 </body>
 

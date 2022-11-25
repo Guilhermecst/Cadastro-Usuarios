@@ -24,8 +24,8 @@
             <td>{{ cliente.nickname }}</td>
             <td>
                 <div class="delete-edit">
-                    <a href="{{ url_for('editar', id=current_user.id) }}"><i
-                            class="ri-ball-pen-line link-icons" title="Editar"></i></a>
+                    <a href="{{ url_for('editar', id=current_user.id) }}"><i class="ri-ball-pen-line link-icons"
+                            title="Editar"></i></a>
                     {% if current_user.id == cliente.id %}
                     <button class="btn-delete link-icons" class="link-icons"><i class="ri-delete-bin-5-line link-icons"
                             title="Deletar"></i></button>
@@ -33,15 +33,14 @@
                     <div id="div-delete">
                         <h4>Tem certeza que deseja deletar seus dados?</h4>
                         <div class="div-delete-buttons">
-                            <a id="btn-sim"
-                                href="{{ url_for('deletar', id=cliente.id) }}">Sim</a>
+                            <a id="btn-sim" href="{{ url_for('deletar', id=cliente.id) }}">Sim</a>
                             <button id="btn-nao">Não</button>
                         </div>
 
                     </div>
                     {% else %}
-                    <a href="{{ url_for('deletar', id=cliente.id) }}"><i
-                            class="ri-delete-bin-5-line link-icons" title="Deletar"></i></a>
+                    <a href="{{ url_for('deletar', id=cliente.id) }}"><i class="ri-delete-bin-5-line link-icons"
+                            title="Deletar"></i></a>
                     {% endif %}
                 </div>
             </td>

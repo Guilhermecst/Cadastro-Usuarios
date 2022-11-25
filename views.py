@@ -144,6 +144,12 @@ def criar_servico():
     nome_servico = request.form['nome_servico']
     valor = request.form['valor']
 
+    servico = Servicos.query.filter_by(nome_servico=nome_servico).first()
+
+    if servico:
+        flash('Serviço já existe')
+        return redirect(url_for('novo_servico'))
+
     Servicos.adicionar_servico(nome_servico, valor)
 
     flash('Serviço adicionado com sucesso!')
