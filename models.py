@@ -5,11 +5,10 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def get_user(id):
-    return Usuarios.query.filter_by(id=id).first()
+    return Clientes.query.filter_by(id=id).first()
 
-
-class Usuarios(db.Model, UserMixin):
-    __tablename__ = 'usuarios'
+class Clientes(db.Model, UserMixin):
+    __tablename__ = 'clientes'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nome = db.Column(db.String(20), nullable=False)
     sobrenome = db.Column(db.String(50), nullable=False)
@@ -29,13 +28,13 @@ class Usuarios(db.Model, UserMixin):
     senha = db.Column(db.String(50), nullable=False)
     agendamento = db.relationship('Agendamentos', backref='id', lazy=True)
 
-    def adicionar_usuario(nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, nickname, senha):
-        usuario = Usuarios(nome=nome, sobrenome=sobrenome, data_nasc=data_nasc, genero=genero,
+    def adicionar_cliente(nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, nickname, senha):
+        cliente = Clientes(nome=nome, sobrenome=sobrenome, data_nasc=data_nasc, genero=genero,
                            email=email, telefone=telefone,
                            cpf=cpf, cep=cep, uf=uf, cidade=cidade,
                            rua=rua, numero=numero, complemento=complemento,
                            bairro=bairro, nickname=nickname, senha=generate_password_hash(senha))
-        db.session.add(usuario)
+        db.session.add(cliente)
         db.session.commit()
 
     def verificar_senha(self, pwd):
@@ -47,9 +46,10 @@ class Servicos(db.Model, UserMixin):
     id_servico = db.Column(
         db.Integer, primary_key=True, autoincrement=True)
     nome_servico = db.Column(db.String(15), nullable=False)
+    valor = db.Column(db.String(6), nullable=False)
 
-    def adicionar_servico(nome_servico):
-        servico = Servicos(nome_servico=nome_servico)
+    def adicionar_servico(nome_servico, valor):
+        servico = Servicos(nome_servico=nome_servico, valor=valor)
         db.session.add(servico)
         db.session.commit()
 
@@ -67,7 +67,7 @@ class Agendamentos(db.Model, UserMixin):
     hora = db.Column(db.String(5), nullable=False)
     email_cliente = db.Column(db.String(120), nullable=False)
     telefone_cliente = db.Column(db.String(15), nullable=False)
-    id_cliente = db.Column(db.Integer, db.ForeignKey('usuarios.id'),
+    id_cliente = db.Column(db.Integer, db.ForeignKey('clientes.id'),
                            nullable=False)
     id_servico = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'),
                            nullable=False)

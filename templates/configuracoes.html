@@ -3,14 +3,14 @@
 <div class="page-header">
     <h2>{{ titulo }}</h2>
 </div>
-<a href="{{ url_for('editar', id=current_user.id) }}" class="btn btn-config">Editar dados<i
+<a href="{{ url_for('editar', id=current_user.id) }}" class="btn btn-same-size1">Editar dados<i
         class="ri-ball-pen-line button-icon"></i></a>
 </body>
 
-<a href="{{ url_for('redefinir_senha', nickname=current_user.nickname) }}" class="btn btn-config">Redefinir senha<i
+<a href="{{ url_for('redefinir_senha', nickname=current_user.nickname) }}" class="btn btn-same-size1">Redefinir senha<i
         class="ri-lock-password-line button-icon"></i></a>
 
-<button class="btn-delete btn btn-config">Deletar cadastro<i class="ri-delete-bin-5-line link-icons"></i></button>
+<button class="btn-delete btn btn-same-size1">Deletar cadastro<i class="ri-delete-bin-5-line link-icons"></i></button>
 
 <div id="div-delete">
     <h4>Tem certeza que deseja deletar seus dados?</h4>

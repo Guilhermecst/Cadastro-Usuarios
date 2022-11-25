@@ -14,6 +14,10 @@ body {
     background-attachment: fixed;
 }
 
+.page-header {
+    margin-bottom: 10px;
+}
+
 .sidebar {
     position: fixed;
     left: 0;
@@ -250,10 +254,16 @@ h4 {
     padding: 10px 25px;
 }
 
-.btn-config {
+.btn-same-size1 {
     display: flex;
     justify-content: center;
     width: 260px;
+}
+
+.btn-same-size2 {
+    display: flex;
+    justify-content: center;
+    width: 178px;
 }
 
 .btn:hover {
@@ -357,6 +367,18 @@ input:focus {
 
 #senha_atual {
     width: 280px;
+}
+
+.servicos {
+    border-radius: 15px;
+    border: solid #ecf0f1;
+    padding: 10px;
+}
+
+.th-servico, .td-servico {
+    background-color: transparent;
+    color: #ecf0f1;
+    padding: 0px;
 }
 
 .ri {

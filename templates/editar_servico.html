@@ -1,0 +1,39 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<div class="page-header">
+    <h2>{{ titulo }}</h2>
+</div>
+<form class="form" action="{{ url_for('atualizar_servico') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id_servico" value="{{ servico.id_servico }}" required>
+    <label class="label-input" for="">
+        <input type="text" maxlength="15" value="{{ servico.nome_servico }}" name="nome_servico" placeholder="Serviço" required>
+    </label>
+    <label class="label-input" for="">
+        <input type="text" maxlength="6" value="{{ servico.valor }}" id="valor" name="valor" placeholder="Valor (R$)" onkeyup="formatarMoeda();" required>
+    </label>
+
+    <script>
+        function formatarMoeda() {
+            var elemento = document.getElementById('valor');
+            var valor = elemento.value;
+    
+            valor = valor + '';
+            valor = parseInt(valor.replace(/[\D]+/g, ''));
+            valor = valor + '';
+            valor = valor.replace(/([0-9]{2})$/g, ",$1");
+    
+            elemento.value = valor;
+            if(valor == 'NaN') elemento.value = '';
+        }
+    </script>
+
+        <button type="submit" class="btn btn-same-size2">Salvar<i class="ri-save-3-fill link-icons"></i></button>
+        <a href="{{ url_for('servicos') }}" class="btn btn-same-size2">Cancelar<i class="ri-close-circle-line link-icons"></i></a>
+
+</form>
+
+
+{% endblock %}
+</body>
+
+</html>

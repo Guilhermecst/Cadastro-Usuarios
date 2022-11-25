@@ -24,8 +24,8 @@ cursor.execute("USE `salao`;")
 
 # criando tabelas
 TABLES = {}
-TABLES['usuarios'] = ('''
-      CREATE TABLE `usuarios` (
+TABLES['clientes'] = ('''
+      CREATE TABLE `clientes` (
       `id` INT(5) NOT NULL AUTO_INCREMENT,
       `nickname` VARCHAR(20),
       `nome` VARCHAR(20) NOT NULL,
@@ -50,6 +50,7 @@ TABLES['servicos'] = ('''
       CREATE TABLE `servicos` (
       `id_servico` INT(5) NOT NULL AUTO_INCREMENT,
       `nome_servico` VARCHAR(15) NOT NULL,
+      `valor` VARCHAR(6) NOT NULL,
       PRIMARY KEY (`id_servico`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
@@ -65,7 +66,7 @@ TABLES['agendamentos'] = ('''
       `id_cliente` INT(5) NOT NULL,
       `id_servico` INT(5) NOT NULL,
       PRIMARY KEY (`id_agendamento`),
-      CONSTRAINT FK_id_cliente FOREIGN KEY (`id_cliente`) REFERENCES usuarios(`id`),
+      CONSTRAINT FK_id_cliente FOREIGN KEY (`id_cliente`) REFERENCES clientes(`id`),
       CONSTRAINT FK_id_servico FOREIGN KEY (`id_servico`) REFERENCES servicos(`id_servico`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;''')
 
@@ -83,14 +84,14 @@ for tabela_nome in TABLES:
             print('OK')
 
 
-''' inserindo usuarios
-usuario_sql = 'INSERT INTO usuarios (nickname, nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-usuarios = [
+''' inserindo clientes
+cliente_sql = 'INSERT INTO clientes (nickname, nome, sobrenome, data_nasc, genero, email, telefone, cpf, cep, uf, cidade, rua, numero, complemento, bairro, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+clientes = [
       ("guilherme", "Guilherme", "Costa Silva", "24/11/2001", "Masculino", "guilherme@gmail.com", "(11) 98765-4321", "123.456.789-10", "06160-265", "SP", "Osasco", "Rua Anastacia", "48", None, "Bandeiras", "teste123"),
 ]
-cursor.executemany(usuario_sql, usuarios)
+cursor.executemany(cliente_sql, clientes)
 
-cursor.execute('select * from usuarios')
+cursor.execute('select * from clientes')
 print(' -------------  Usuários:  -------------')
 for user in cursor.fetchall():
     print(user[1])'''

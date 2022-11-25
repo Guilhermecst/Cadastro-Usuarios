@@ -7,33 +7,42 @@
     <thead class="thead-default">
         <tr>
             <th>Id</th>
-            <th>Serviço</th>
-            <th>Valor (R$)</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Nome de usuário</th>
             <th>Funções</th>
         </tr>
     </thead>
     <tbody>
-        {% for servico in servicos %}
+        {% for cliente in clientes %}
         <tr>
-            <td>{{ servico.id_servico }}</td>
-            <td>{{ servico.nome_servico }}</td>
-            <td>{{ servico.valor }}</td>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>{{ cliente.nickname }}</td>
             <td>
                 <div class="delete-edit">
-                    <a href="{{ url_for('editar_servico', id_servico=servico.id_servico) }}"><i
-                            class="ri-ball-pen-line link-icons" title="Editar serviço"></i></a>
-                    <button class="btn-delete link-icons"><i class="ri-close-circle-line link-icons"
-                            title="Deletar serviço"></i></button>
+                    <a href="{{ url_for('editar', id=current_user.id) }}"><i
+                            class="ri-ball-pen-line link-icons" title="Editar"></i></a>
+                    {% if current_user.id == cliente.id %}
+                    <button class="btn-delete link-icons" class="link-icons"><i class="ri-delete-bin-5-line link-icons"
+                            title="Deletar"></i></button>
 
                     <div id="div-delete">
-                        <h4>Tem certeza que deseja deletar o serviço?</h4>
+                        <h4>Tem certeza que deseja deletar seus dados?</h4>
                         <div class="div-delete-buttons">
                             <a id="btn-sim"
-                                href="{{ url_for('deletar_servico', id_servico=servico.id_servico) }}">Sim</a>
+                                href="{{ url_for('deletar', id=cliente.id) }}">Sim</a>
                             <button id="btn-nao">Não</button>
                         </div>
 
                     </div>
+                    {% else %}
+                    <a href="{{ url_for('deletar', id=cliente.id) }}"><i
+                            class="ri-delete-bin-5-line link-icons" title="Deletar"></i></a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
@@ -64,7 +73,7 @@
     </tbody>
 </table><br>
 
-<a href="{{ url_for('novo_servico') }}" class="btn">Novo servico<i class="ri-scissors-2-line button-icon"></i></a>
+<a href="{{ url_for('novo') }}" class="btn">Novo usuário<i class="ri-add-circle-line button-icon"></i></a>
 
 </div>
 </body>
